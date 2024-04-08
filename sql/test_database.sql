@@ -1,0 +1,11 @@
+SELECT * FROM  acquisitions LIMIT 5;
+SELECT * FROM  degrees LIMIT 5;
+SELECT * FROM  funding_rounds LIMIT 5;
+SELECT * FROM  funds LIMIT 5;
+SELECT * FROM  investments LIMIT 5;
+SELECT * FROM  ipos LIMIT 5;
+SELECT * FROM  milestones LIMIT 5;
+SELECT * FROM  objects LIMIT 5;
+SELECT * FROM  offices LIMIT 5;
+SELECT * FROM  people LIMIT 5;
+SELECT * FROM  relationships LIMIT 5;
