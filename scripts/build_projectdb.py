@@ -26,6 +26,7 @@ with psql.connect(conn_string) as conn:
     with open(os.path.join("sql", "import_data.sql")) as file:
         # We assume that the COPY commands in the file are ordered (1.depts, 2.emps)
         commands = file.readlines()
+
         for i, file in enumerate(sorted(os.listdir("data"))):
             with open(os.path.join("data", file), "r") as table:
                 cur.copy_expert(commands[i], table)
