@@ -1,4 +1,8 @@
-pylint
-pyspark
-pandas
-streamlit
+certifi==2024.2.2
+charset-normalizer==2.0.12
+idna==3.6
+pgsql==1.2
+psycopg2==2.9.3
+requests==2.27.1
+urllib3==1.26.18
+wldhx.yadisk-direct==0.0.6
