@@ -18,7 +18,7 @@ python3 scripts/build_projectdb.py
 # Import the database into HDFS via Sqoop
 password=$(head -n 1 secrets/.psql.pass)
 cd output
-hdfs dfs -rm -r /project/warehouse
+hdfs dfs -rm -r /user/team13/project/warehouse
 sqoop import-all-tables --connect jdbc:postgresql://hadoop-04.uni.innopolis.ru/team13_projectdb --username team13 --password $password --compression-codec=snappy --compress --as-avrodatafile --warehouse-dir=project/warehouse --m 1
 
 #
