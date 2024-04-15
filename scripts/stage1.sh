@@ -12,6 +12,7 @@ rm -rf data/ibd_group_project
 rm data/data.zip
 
 # build db
+export PYTHONIOENCODING=utf-8
 python3 scripts/build_projectdb.py
 
 # Import the database into HDFS via Sqoop
