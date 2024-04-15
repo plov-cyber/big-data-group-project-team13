@@ -238,11 +238,6 @@ ALTER TABLE acquisitions
 
 -- relationships table
 ALTER TABLE relationships
-    ADD CONSTRAINT fk_relationships_people
-        FOREIGN KEY (person_object_id)
-            REFERENCES people (object_id);
-
-ALTER TABLE relationships
     ADD CONSTRAINT fk_relationships_objects
         FOREIGN KEY (relationship_object_id)
             REFERENCES objects (id);
@@ -263,14 +258,9 @@ ALTER TABLE ipos
 ALTER TABLE degrees
     ADD CONSTRAINT fk_degrees_people
         FOREIGN KEY (object_id)
-            REFERENCES people (object_id);
+            REFERENCES objects (id);
 
 -- investments table
-ALTER TABLE investments
-    ADD CONSTRAINT fk_investments_funding_rounds
-        FOREIGN KEY (funding_round_id)
-            REFERENCES funding_rounds (funding_round_id);
-
 ALTER TABLE investments
     ADD CONSTRAINT fk_investments_objects1
         FOREIGN KEY (funded_object_id)
