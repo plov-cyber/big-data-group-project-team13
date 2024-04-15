@@ -27,7 +27,11 @@ with psql.connect(conn_string) as conn:
         # We assume that the COPY commands in the file are ordered (1.depts, 2.emps)
         commands = file.readlines()
 
-        for i, file in enumerate(sorted(os.listdir("data"))):
+        files = sorted(os.listdir("data"))
+        files.remove('objects.csv')
+        files = ['objects.csv'] + files
+
+        for i, file in enumerate(files):
             with open(os.path.join("data", file), "r") as table:
                 cur.copy_expert(commands[i], table)
 
