@@ -9,7 +9,8 @@ with open(file, "r") as file:
 
 # build connection string
 conn_string = "host=hadoop-04.uni.innopolis.ru port=5432 user=team13 dbname=team13_projectdb password={}".format(
-    password)
+    password
+)
 
 # Connect to the remote dbms
 with psql.connect(conn_string) as conn:
@@ -28,11 +29,11 @@ with psql.connect(conn_string) as conn:
         commands = file.readlines()
 
         files = sorted(os.listdir("data"))
-        files.remove('objects.csv')
-        files = ['objects.csv'] + files
+        files.remove("objects.csv")
+        files = ["objects.csv"] + files
 
         for i, file in enumerate(files):
-            with open(os.path.join("data", file), "r") as table:
+            with open(os.path.join("data", file), "r", encoding="utf-8") as table:
                 cur.copy_expert(commands[i], table)
 
     # If the sql statements are CRUD then you need to commit the change
