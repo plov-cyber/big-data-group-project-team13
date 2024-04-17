@@ -209,7 +209,6 @@ CREATE EXTERNAL TABLE funding_rounds_part
     funding_round_id         BIGINT,
     object_id                VARCHAR(255),
     funded_at                DATE,
-    funding_round_type       VARCHAR(255),
     funding_round_code       VARCHAR(255),
     raised_amount_usd        NUMERIC(19, 2),
     raised_amount            NUMERIC(19, 2),
