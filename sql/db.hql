@@ -164,3 +164,42 @@ CREATE EXTERNAL TABLE objects_buck
     STORED AS AVRO
     LOCATION 'project/hive/warehouse/objects_buck'
     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
+
+INSERT INTO objects_buck
+SELECT id,
+       entity_type,
+       entity_id,
+       normalized_name,
+       permalink,
+       category_code,
+       status,
+       domain,
+       homepage_url,
+       twitter_username,
+       logo_url,
+       logo_width,
+       logo_height,
+       short_description,
+       description,
+       overview,
+       tag_list,
+       country_code,
+       state_code,
+       city,
+       region,
+       first_investment_at,
+       last_investment_at,
+       investment_rounds,
+       invested_companies,
+       first_funding_at,
+       last_funding_at,
+       funding_rounds,
+       funding_total_usd,
+       first_milestone_at,
+       last_milestone_at,
+       milestones,
+       relationships,
+       created_by,
+       created_at,
+       updated_at
+FROM objects;
