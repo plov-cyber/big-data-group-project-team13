@@ -123,7 +123,7 @@ LIMIT 5;
 -- Create external table with partitions
 CREATE EXTERNAL TABLE objects_buck
 (
-    id                  VARCHAR(255) PRIMARY KEY ENFORCED,
+    id                  VARCHAR(255),
     entity_type         VARCHAR(50),
     entity_id           BIGINT,
     normalized_name     VARCHAR(255),
