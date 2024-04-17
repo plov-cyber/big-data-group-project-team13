@@ -88,39 +88,49 @@ CREATE EXTERNAL TABLE funding_rounds
 SELECT *
 FROM acquisitions
 LIMIT 5;
+
 SELECT *
 FROM objects
 LIMIT 5;
+
 SELECT *
 FROM people
 LIMIT 5;
+
 SELECT *
 FROM offices
 LIMIT 5;
+
 SELECT *
 FROM relationships
 LIMIT 5;
+
 SELECT *
 FROM milestones
 LIMIT 5;
+
 SELECT *
 FROM ipos
 LIMIT 5;
+
 SELECT *
 FROM degrees
 LIMIT 5;
+
 SELECT *
 FROM investments
 LIMIT 5;
+
 SELECT *
 FROM funds
 LIMIT 5;
+
 SELECT *
 FROM funding_rounds
 LIMIT 5;
 
 
--- Create external table with partitions
+-- Create external table with buckets
 CREATE EXTERNAL TABLE objects_buck
 (
     id                 VARCHAR(255),
@@ -191,3 +201,69 @@ SELECT id,
        created_at,
        updated_at
 FROM objects;
+
+-- Create external table with partitions 
+CREATE EXTERNAL TABLE funding_rounds_part
+(
+    id                       INTEGER,
+    funding_round_id         BIGINT,
+    object_id                VARCHAR(255),
+    funded_at                DATE,
+    funding_round_type       VARCHAR(255),
+    funding_round_code       VARCHAR(255),
+    raised_amount_usd        NUMERIC(19, 2),
+    raised_amount            NUMERIC(19, 2),
+    raised_currency_code     VARCHAR(3),
+    pre_money_valuation_usd  NUMERIC(19, 2),
+    pre_money_valuation      NUMERIC(19, 2),
+    pre_money_currency_code  VARCHAR(3),
+    post_money_valuation_usd NUMERIC(19, 2),
+    post_money_valuation     NUMERIC(19, 2),
+    post_money_currency_code VARCHAR(3),
+    participants             SMALLINT,
+    is_first_round           SMALLINT,
+    is_last_round            SMALLINT,
+    source_url               STRING,
+    source_description       STRING,
+    created_by               VARCHAR(255),
+    created_at               TIMESTAMP,
+    updated_at               TIMESTAMP
+)
+    PARTITIONED BY (funding_round_type VARCHAR(255)) 
+    STORED AS AVRO LOCATION 'project/hive/warehouse/funding_rounds_part'
+    TBLPROPERTIES ('AVRO.COMPRESS'='SNAPPY');
+
+INSERT INTO funding_rounds_part
+SELECT id,
+    funding_round_id,
+    object_id,
+    from_unixtime(CAST(funded_at/1000 AS BIGINT)) AS funded_at,
+    funding_round_type,
+    funding_round_code,
+    raised_amount_usd,
+    raised_amount,
+    raised_currency_code,
+    pre_money_valuation_usd,
+    pre_money_valuation,
+    pre_money_currency_code,
+    post_money_valuation_usd,
+    post_money_valuation,
+    post_money_currency_code,
+    participants,
+    is_first_round,
+    is_last_round,
+    source_url,
+    source_description,
+    created_by,
+    created_at,
+    updated_at              
+FROM funding_rounds;
+
+-- For checking the content of tables with partitioning and bucketing
+SELECT *
+FROM objects_buck
+LIMIT 5;
+
+SELECT *
+FROM funding_rounds_part
+LIMIT 5;
