@@ -1,4 +1,5 @@
 SET hive.exec.dynamic.partition=true;
+SET hive.exec.dynamic.partition.mode=nonstrict;
 
 DROP DATABASE IF EXISTS team13_projectdb CASCADE;
 
