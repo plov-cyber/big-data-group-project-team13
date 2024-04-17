@@ -1,27 +1,26 @@
 #!/bin/bash
 
-# download the data
+# Download the dataset
 url="https://disk.yandex.ru/d/ErRH7JdGugYe8A"
 
 wget "$(yadisk-direct $url)" -O data/data.zip
 
-# save the data
+# Save the dataset
 unzip data/data.zip -d data/
 cp data/ibd_group_project/*.csv data/
 rm -rf data/ibd_group_project
 rm data/data.zip
 
-# build db
+# Build PostgreSQL database
 export PYTHONIOENCODING=utf-8
 python3 scripts/build_projectdb.py
 
 # Import the database into HDFS via Sqoop
 password=$(head -n 1 secrets/.psql.pass)
 cd output
-hdfs dfs -rm -r /user/team13/project/warehouse
 sqoop import-all-tables --connect jdbc:postgresql://hadoop-04.uni.innopolis.ru/team13_projectdb --username team13 --password $password --compression-codec=snappy --compress --as-avrodatafile --warehouse-dir=project/warehouse --m 1
 
-#
+# Put Hive output to HDFS
 cd ..
 hdfs dfs -mkdir -p project/warehouse/avsc
 hdfs dfs -put output/*.avsc project/warehouse/avsc
