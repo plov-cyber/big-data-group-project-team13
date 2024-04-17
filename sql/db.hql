@@ -233,6 +233,7 @@ CREATE EXTERNAL TABLE funding_rounds_part
     TBLPROPERTIES ('AVRO.COMPRESS'='SNAPPY');
 
 INSERT INTO funding_rounds_part
+PARTITION (funding_round_type)
 SELECT id,
     funding_round_id,
     object_id,
