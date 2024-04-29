@@ -132,14 +132,12 @@ LIMIT 5;
 
 
 -- Create external table with buckets
-CREATE EXTERNAL TABLE objects_buck
+CREATE EXTERNAL TABLE objects_part
 (
     id                 VARCHAR(255),
-    entity_type        VARCHAR(50),
     entity_id          BIGINT,
     normalized_name    VARCHAR(255),
     permalink          VARCHAR(255),
-    category_code      VARCHAR(50),
     status             VARCHAR(50),
     domain             VARCHAR(255),
     homepage_url       VARCHAR(500),
@@ -165,18 +163,23 @@ CREATE EXTERNAL TABLE objects_buck
     created_at         TIMESTAMP,
     updated_at         TIMESTAMP
 )
-    CLUSTERED BY (id) INTO 256 buckets
+--     CLUSTERED BY (id) INTO 256 buckets
+    PARTITIONED BY (entity_type, category_code)
     STORED AS AVRO
-    LOCATION 'project/hive/warehouse/objects_buck'
+    LOCATION 'project/hive/warehouse/objects_part'
     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
 
-INSERT INTO objects_buck
+-- funding_rounds partition by funded_at_year(new column) where year >= 2000
+-- objects partition by (entity_type, category_code) where (category_code, country_code, funded_at) NOT NULL
+-- degrees bucketing by (degree_type) into 256 buckets
+
+
+INSERT OVERWRITE TABLE objects_part
+PARTITION (entity_type, category_code)
 SELECT id,
-       entity_type,
        entity_id,
        normalized_name,
        permalink,
-       category_code,
        status,
        domain,
        homepage_url,
@@ -200,7 +203,9 @@ SELECT id,
        relationships,
        created_by,
        created_at,
-       updated_at
+       updated_at,
+       entity_type,
+       category_code
 FROM objects;
 
 -- Create external table with partitions 
