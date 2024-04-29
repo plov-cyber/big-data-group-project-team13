@@ -23,7 +23,8 @@ FROM (SELECT category_code, ROUND(raised_amount_usd / POW(10, 6), 2) AS raised_a
                             AND category_code IN ('web', 'advertising', 'mobile', 'software',
                                                   'ecommerce')) companies_from_top_categories
                          ON (funding_rounds_part.object_id = companies_from_top_categories.id)) money_by_category
-WHERE raised_amount_mln_usd <= 50;
+WHERE raised_amount_mln_usd <= 50
+  AND category_code IS NOT NULL;
 
 SELECT *
 FROM q1_results;
