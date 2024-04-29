@@ -286,7 +286,7 @@ SELECT id,
        updated_at,
        year(from_unixtime(CAST(funded_at / 1000 AS BIGINT))) AS funded_at_year
 FROM funding_rounds
-WHERE funded_at_year >= 2000;
+WHERE year(from_unixtime(CAST(funded_at / 1000 AS BIGINT))) >= 2000;
 
 -- For checking the content of tables with partitioning and bucketing
 SELECT *
