@@ -234,6 +234,7 @@ CREATE EXTERNAL TABLE funding_rounds_part
     funding_round_id         BIGINT,
     object_id                VARCHAR(255),
     funded_at                DATE,
+    funding_round_type       VARCHAR(255),
     funding_round_code       VARCHAR(255),
     raised_amount_usd        NUMERIC(19, 2),
     raised_amount            NUMERIC(19, 2),
@@ -253,17 +254,18 @@ CREATE EXTERNAL TABLE funding_rounds_part
     created_at               TIMESTAMP,
     updated_at               TIMESTAMP
 )
-    PARTITIONED BY (funding_round_type STRING)
+    PARTITIONED BY (funded_at_year STRING)
     STORED AS AVRO
     LOCATION 'project/hive/warehouse/funding_rounds_part'
     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
 
 INSERT OVERWRITE TABLE funding_rounds_part
-    PARTITION (funding_round_type)
+    PARTITION (funded_at_year)
 SELECT id,
        funding_round_id,
        object_id,
-       from_unixtime(CAST(funded_at / 1000 AS BIGINT)) AS funded_at,
+       from_unixtime(CAST(funded_at / 1000 AS BIGINT))       AS funded_at,
+       funding_round_type,
        funding_round_code,
        raised_amount_usd,
        raised_amount,
@@ -282,8 +284,9 @@ SELECT id,
        created_by,
        created_at,
        updated_at,
-       funding_round_type
-FROM funding_rounds;
+       year(from_unixtime(CAST(funded_at / 1000 AS BIGINT))) AS funded_at_year
+FROM funding_rounds
+WHERE funded_at_year >= 2000;
 
 -- For checking the content of tables with partitioning and bucketing
 SELECT *
