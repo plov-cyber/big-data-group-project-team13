@@ -134,36 +134,45 @@ LIMIT 5;
 -- Create external table with buckets
 CREATE EXTERNAL TABLE objects_part
 (
-    id                 VARCHAR(255),
-    entity_id          BIGINT,
-    normalized_name    VARCHAR(255),
-    permalink          VARCHAR(255),
-    status             VARCHAR(50),
-    domain             VARCHAR(255),
-    homepage_url       VARCHAR(500),
-    twitter_username   VARCHAR(50),
-    logo_url           VARCHAR(500),
-    logo_width         SMALLINT,
-    logo_height        SMALLINT,
-    short_description  STRING,
-    description        STRING,
-    overview           STRING,
-    tag_list           STRING,
-    country_code       VARCHAR(3),
-    state_code         VARCHAR(2),
-    city               VARCHAR(255),
-    region             VARCHAR(255),
-    investment_rounds  SMALLINT,
-    invested_companies SMALLINT,
-    funding_rounds     SMALLINT,
-    funding_total_usd  NUMERIC(19, 2),
-    milestones         SMALLINT,
-    relationships      SMALLINT,
-    created_by         VARCHAR(255),
-    created_at         TIMESTAMP,
-    updated_at         TIMESTAMP
+    id                  VARCHAR(255),
+    entity_id           BIGINT,
+    parent_id           VARCHAR(255),
+    name                VARCHAR(1024),
+    normalized_name     VARCHAR(255),
+    permalink           VARCHAR(255),
+    status              VARCHAR(50),
+    founded_at          DATE,
+    closed_at           DATE,
+    domain              VARCHAR(255),
+    homepage_url        VARCHAR(500),
+    twitter_username    VARCHAR(50),
+    logo_url            VARCHAR(500),
+    logo_width          SMALLINT,
+    logo_height         SMALLINT,
+    short_description   STRING,
+    description         STRING,
+    overview            STRING,
+    tag_list            STRING,
+    country_code        VARCHAR(3),
+    state_code          VARCHAR(2),
+    city                VARCHAR(255),
+    region              VARCHAR(255),
+    first_investment_at DATE,
+    last_investment_at  DATE,
+    investment_rounds   SMALLINT,
+    invested_companies  SMALLINT,
+    first_funding_at    DATE,
+    last_funding_at     DATE,
+    funding_rounds      SMALLINT,
+    funding_total_usd   NUMERIC(19, 2),
+    first_milestone_at  DATE,
+    last_milestone_at   DATE,
+    milestones          SMALLINT,
+    relationships       SMALLINT,
+    created_by          VARCHAR(255),
+    created_at          TIMESTAMP,
+    updated_at          TIMESTAMP
 )
---     CLUSTERED BY (id) INTO 256 buckets
     PARTITIONED BY (entity_type STRING, category_code STRING)
     STORED AS AVRO
     LOCATION 'project/hive/warehouse/objects_part'
@@ -175,12 +184,16 @@ CREATE EXTERNAL TABLE objects_part
 
 
 INSERT OVERWRITE TABLE objects_part
-PARTITION (entity_type, category_code)
+    PARTITION (entity_type, category_code)
 SELECT id,
        entity_id,
+       parent_id,
+       name,
        normalized_name,
        permalink,
        status,
+       founded_at,
+       closed_at,
        domain,
        homepage_url,
        twitter_username,
@@ -195,10 +208,16 @@ SELECT id,
        state_code,
        city,
        region,
+       first_investment_at,
+       last_investment_at,
        investment_rounds,
        invested_companies,
+       first_funding_at,
+       last_funding_at,
        funding_rounds,
        funding_total_usd,
+       first_milestone_at,
+       last_milestone_at,
        milestones,
        relationships,
        created_by,
@@ -268,7 +287,7 @@ FROM funding_rounds;
 
 -- For checking the content of tables with partitioning and bucketing
 SELECT *
-FROM objects_buck
+FROM objects_part
 LIMIT 5;
 
 SELECT *
