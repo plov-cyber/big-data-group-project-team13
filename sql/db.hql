@@ -164,7 +164,7 @@ CREATE EXTERNAL TABLE objects_part
     updated_at         TIMESTAMP
 )
 --     CLUSTERED BY (id) INTO 256 buckets
-    PARTITIONED BY (entity_type, category_code)
+    PARTITIONED BY (entity_type STRING, category_code STRING)
     STORED AS AVRO
     LOCATION 'project/hive/warehouse/objects_part'
     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
