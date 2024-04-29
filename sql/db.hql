@@ -257,7 +257,8 @@ SELECT id,
        source_description,
        created_by,
        created_at,
-       updated_at
+       updated_at,
+       funding_round_type
 FROM funding_rounds;
 
 -- For checking the content of tables with partitioning and bucketing
