@@ -165,7 +165,7 @@ CREATE EXTERNAL TABLE objects_buck
     created_at         TIMESTAMP,
     updated_at         TIMESTAMP
 )
-    CLUSTERED BY (id) INTO 1000 buckets
+    CLUSTERED BY (id) INTO 256 buckets
     STORED AS AVRO
     LOCATION 'project/hive/warehouse/objects_buck'
     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
@@ -229,35 +229,35 @@ CREATE EXTERNAL TABLE funding_rounds_part
     created_at               TIMESTAMP,
     updated_at               TIMESTAMP
 )
-    PARTITIONED BY (funding_round_type VARCHAR(255)) 
-    STORED AS AVRO LOCATION 'project/hive/warehouse/funding_rounds_part'
-    TBLPROPERTIES ('AVRO.COMPRESS'='SNAPPY');
+    PARTITIONED BY (funding_round_type STRING)
+    STORED AS AVRO
+    LOCATION 'project/hive/warehouse/funding_rounds_part'
+    TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
 
-INSERT INTO funding_rounds_part
-PARTITION (funding_round_type)
+INSERT OVERWRITE TABLE funding_rounds_part
+    PARTITION (funding_round_type)
 SELECT id,
-    funding_round_id,
-    object_id,
-    from_unixtime(CAST(funded_at/1000 AS BIGINT)) AS funded_at,
-    funding_round_type,
-    funding_round_code,
-    raised_amount_usd,
-    raised_amount,
-    raised_currency_code,
-    pre_money_valuation_usd,
-    pre_money_valuation,
-    pre_money_currency_code,
-    post_money_valuation_usd,
-    post_money_valuation,
-    post_money_currency_code,
-    participants,
-    is_first_round,
-    is_last_round,
-    source_url,
-    source_description,
-    created_by,
-    created_at,
-    updated_at              
+       funding_round_id,
+       object_id,
+       from_unixtime(CAST(funded_at / 1000 AS BIGINT)) AS funded_at,
+       funding_round_code,
+       raised_amount_usd,
+       raised_amount,
+       raised_currency_code,
+       pre_money_valuation_usd,
+       pre_money_valuation,
+       pre_money_currency_code,
+       post_money_valuation_usd,
+       post_money_valuation,
+       post_money_currency_code,
+       participants,
+       is_first_round,
+       is_last_round,
+       source_url,
+       source_description,
+       created_by,
+       created_at,
+       updated_at
 FROM funding_rounds;
 
 -- For checking the content of tables with partitioning and bucketing
