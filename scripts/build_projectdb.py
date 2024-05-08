@@ -38,7 +38,11 @@ with psql.connect(CONN_STRING) as conn:
         files = ["objects.csv"] + files
 
         for idx, file in enumerate(files):
-            with open(os.path.join("data", file), "r", encoding="utf-8") as table:
+            filepath = os.path.join("data", file)
+            if not os.path.isfile(filepath):
+                continue
+
+            with open(filepath, "r", encoding="utf-8") as table:
                 cur.copy_expert(commands[idx], table)
 
     # If the SQL statements are CRUD then you need to commit the change
