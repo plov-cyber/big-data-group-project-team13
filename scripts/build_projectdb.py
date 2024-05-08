@@ -33,7 +33,7 @@ with psql.connect(CONN_STRING) as conn:
         # We assume that the COPY commands in the file are ordered (1.depts, 2.emps)
         commands = file.readlines()
 
-        files = sorted(list(filter(lambda path: os.path.isfile(path), os.listdir("data"))))
+        files = sorted(list(filter(lambda path: '.csv' in path, os.listdir("data"))))
         files.remove("objects.csv")
         files = ["objects.csv"] + files
 
