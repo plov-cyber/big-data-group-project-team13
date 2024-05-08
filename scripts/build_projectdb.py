@@ -33,16 +33,12 @@ with psql.connect(CONN_STRING) as conn:
         # We assume that the COPY commands in the file are ordered (1.depts, 2.emps)
         commands = file.readlines()
 
-        files = sorted(os.listdir("data"))
+        files = sorted(list(filter(lambda path: os.path.isfile(path), os.listdir("data"))))
         files.remove("objects.csv")
         files = ["objects.csv"] + files
 
         for idx, file in enumerate(files):
-            filepath = os.path.join("data", file)
-            if not os.path.isfile(filepath):
-                continue
-
-            with open(filepath, "r", encoding="utf-8") as table:
+            with open(os.path.join("data", file), "r", encoding="utf-8") as table:
                 cur.copy_expert(commands[idx], table)
 
     # If the SQL statements are CRUD then you need to commit the change
