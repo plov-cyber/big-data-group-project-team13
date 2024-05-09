@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS q4_results;
 CREATE EXTERNAL TABLE q4_results
 (
     funding_round_type    STRING,
-    raised_amount_mln_usd INTEGER
+    raised_amount_mln_usd FLOAT
 )
     ROW FORMAT DELIMITED
         FIELDS TERMINATED BY ','

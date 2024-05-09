@@ -3,7 +3,7 @@ USE team13_projectdb;
 DROP TABLE IF EXISTS q3_results;
 CREATE EXTERNAL TABLE q3_results
 (
-    raised_amount_mln_usd INTEGER,
+    raised_amount_mln_usd FLOAT,
     time_gap              INTEGER
 )
     ROW FORMAT DELIMITED

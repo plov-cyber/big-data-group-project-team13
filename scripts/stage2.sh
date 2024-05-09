@@ -19,3 +19,6 @@ beeline -u jdbc:hive2://hadoop-03.uni.innopolis.ru:10001 -n team13 -p $password 
 
 # Q5
 beeline -u jdbc:hive2://hadoop-03.uni.innopolis.ru:10001 -n team13 -p $password -f sql/q5.hql --hiveconf hive.resultset.use.unique.column.names=false > output/q5.csv 2> /dev/null
+
+# Q6
+beeline -u jdbc:hive2://hadoop-03.uni.innopolis.ru:10001 -n team13 -p $password -f sql/q6.hql --hiveconf hive.resultset.use.unique.column.names=false > output/q6.csv 2> /dev/null
