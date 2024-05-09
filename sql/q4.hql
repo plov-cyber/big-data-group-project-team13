@@ -3,7 +3,6 @@ USE team13_projectdb;
 DROP TABLE IF EXISTS q4_results;
 CREATE EXTERNAL TABLE q4_results
 (
-    funding_round_id      INTEGER,
     funding_round_type    STRING,
     raised_amount_mln_usd INTEGER
 )
@@ -12,7 +11,7 @@ CREATE EXTERNAL TABLE q4_results
     location 'project/hive/warehouse/q4';
 
 INSERT INTO q4_results
-SELECT funding_round_id, funding_round_type, ROUND(raised_amount_usd / POW(10, 6), 2) AS raised_amount_mln_usd
+SELECT funding_round_type, ROUND(raised_amount_usd / POW(10, 6), 2) AS raised_amount_mln_usd
 FROM funding_rounds_part
 WHERE raised_amount_usd < 500000000;
 
