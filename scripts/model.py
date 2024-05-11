@@ -461,7 +461,6 @@ class CyclicTransformer(
             output_col + "_cos", cos_col
         )
 
-
 # Create String indexer to assign index for the string fields 
 indexers = [
     StringIndexer(inputCol=c, outputCol=f"{c}_indexed").setHandleInvalid("skip")
@@ -485,8 +484,8 @@ cyclic_transformers = [
 # This will concatenate the input cols into a single column
 assembler = VectorAssembler(
     inputCols=[encoder.getOutputCol() for encoder in encoders]
-    + [transformer.getOutputCol() + "_sin" for transformer in cyclic_transformers]
-    + [transformer.getOutputCol() + "_cos" for transformer in cyclic_transformers]
+    + [transformer.get_output_col() + "_sin" for transformer in cyclic_transformers]
+    + [transformer.get_output_col() + "_cos" for transformer in cyclic_transformers]
     + numerical_cols,
     outputCol="features",
 )
