@@ -3,7 +3,7 @@ USE team13_projectdb;
 DROP TABLE IF EXISTS q6_results;
 CREATE EXTERNAL TABLE q6_results
 (
-    object_id STRING,
+    object_id            STRING,
     funded_at_year       INTEGER,
     raised_money_mln_usd FLOAT,
     continent            STRING
@@ -58,4 +58,5 @@ FROM funding_rounds_part
                    ON (funding_rounds_part.object_id = companies.id);
 
 SELECT *
-FROM q6_results;
+FROM q6_results
+LIMIT 100;

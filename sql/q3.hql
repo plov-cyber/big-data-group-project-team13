@@ -35,4 +35,5 @@ FROM (SELECT id, year(founded_at) AS founded_at_year
 
 
 SELECT *
-FROM q3_results;
+FROM q3_results
+LIMIT 100;

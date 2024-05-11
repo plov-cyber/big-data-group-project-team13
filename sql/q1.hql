@@ -27,4 +27,5 @@ WHERE raised_amount_mln_usd <= 50
   AND category_code IS NOT NULL;
 
 SELECT *
-FROM q1_results;
+FROM q1_results
+LIMIT 100;

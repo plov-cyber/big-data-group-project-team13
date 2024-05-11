@@ -22,4 +22,5 @@ FROM (SELECT category_code, year(founded_at) AS founded_at_year
 WHERE founded_at_year > 2000;
 
 SELECT *
-FROM q2_results;
+FROM q2_results
+LIMIT 100;

@@ -17,4 +17,5 @@ WHERE raised_amount_usd < 500000000;
 
 
 SELECT *
-FROM q4_results;
+FROM q4_results
+LIMIT 100;

@@ -17,4 +17,5 @@ FROM funding_rounds_part;
 
 
 SELECT *
-FROM q5_results;
+FROM q5_results
+LIMIT 100;
