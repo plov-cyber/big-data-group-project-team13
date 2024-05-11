@@ -373,7 +373,6 @@ final = final.withColumnRenamed("raised_amount_usd", "label")
 # Saving intermediate results
 final = final.cache()
 
-
 # Building the Pipeline
 # Extract categorical, numerical and cyclical features
 categorical_cols = ["status", "funding_round_type", "category_code", "country_code"]
@@ -391,7 +390,8 @@ cyclical_cols = ["funded_month", "funded_day"]
 periods = [12, 31]  # periods for months and days accordingly
 
 
-# Build a custom tranformer to encode cyclical features
+# Build a custom transformer to encode cyclical features
+# pylint: disable=all
 class CyclicTransformer(
     Transformer, HasInputCol, HasOutputCol, DefaultParamsReadable, DefaultParamsWritable
 ):
@@ -414,7 +414,7 @@ class CyclicTransformer(
 
     @keyword_only
     def __init__(
-        self, input_col: str = "input", output_col: str = "output", period: int = 12
+            self, input_col: str = "input", output_col: str = "output", period: int = 12
     ):
         super().__init__()
         self._setDefault(input_col=None, output_col=None)
@@ -461,7 +461,11 @@ class CyclicTransformer(
             output_col + "_cos", cos_col
         )
 
-# Create String indexer to assign index for the string fields 
+
+# pylint: enable=all
+
+
+# Create String indexer to assign index for the string fields
 indexers = [
     StringIndexer(inputCol=c, outputCol=f"{c}_indexed").setHandleInvalid("skip")
     for c in categorical_cols
@@ -484,9 +488,9 @@ cyclic_transformers = [
 # This will concatenate the input cols into a single column
 assembler = VectorAssembler(
     inputCols=[encoder.getOutputCol() for encoder in encoders]
-    + [transformer.get_output_col() + "_sin" for transformer in cyclic_transformers]
-    + [transformer.get_output_col() + "_cos" for transformer in cyclic_transformers]
-    + numerical_cols,
+              + [transformer.get_output_col() + "_sin" for transformer in cyclic_transformers]
+              + [transformer.get_output_col() + "_cos" for transformer in cyclic_transformers]
+              + numerical_cols,
     outputCol="features",
 )
 
@@ -579,17 +583,17 @@ class MAPEEvaluator(Evaluator):
 
 
 # Evaluate the performance of the model
-evaluator1_rmse = RegressionEvaluator(
+evaluator_rmse = RegressionEvaluator(
     labelCol="label", predictionCol="prediction", metricName="rmse"
 )
-evaluator1_r2 = RegressionEvaluator(
+evaluator_r2 = RegressionEvaluator(
     labelCol="label", predictionCol="prediction", metricName="r2"
 )
-evaluator1_mape = MAPEEvaluator(label_col="label", prediction_col="prediction")
+evaluator_mape = MAPEEvaluator(label_col="label", prediction_col="prediction")
 
-rmse_lr = evaluator1_rmse.evaluate(predictions)
-r2_lr = evaluator1_r2.evaluate(predictions)
-mape_lr = evaluator1_mape.evaluate(predictions)
+rmse_lr = evaluator_rmse.evaluate(predictions)
+r2_lr = evaluator_r2.evaluate(predictions)
+mape_lr = evaluator_mape.evaluate(predictions)
 
 # Hyperparameter optimization
 grid = ParamGridBuilder()
@@ -602,7 +606,7 @@ grid = (
 cv = CrossValidator(
     estimator=lr,
     estimatorParamMaps=grid,
-    evaluator=evaluator1_mape,
+    evaluator=evaluator_mape,
     parallelism=5,
     numFolds=3,
 )
@@ -631,17 +635,9 @@ run(
 )
 
 # Evaluate the performance of the best model
-evaluator1_rmse = RegressionEvaluator(
-    labelCol="label", predictionCol="prediction", metricName="rmse"
-)
-evaluator1_r2 = RegressionEvaluator(
-    labelCol="label", predictionCol="prediction", metricName="r2"
-)
-evaluator1_mape = MAPEEvaluator(label_col="label", prediction_col="prediction")
-
-rmse1 = evaluator1_rmse.evaluate(predictions)
-r2_1 = evaluator1_r2.evaluate(predictions)
-mape1 = evaluator1_mape.evaluate(predictions)
+rmse1 = evaluator_rmse.evaluate(predictions)
+r2_1 = evaluator_r2.evaluate(predictions)
+mape1 = evaluator_mape.evaluate(predictions)
 
 # Modeling: Second model
 # Second model is Gradient-Boosted Tree Regression
@@ -655,20 +651,11 @@ model_gbt = gbt.fit(train_data)
 predictions = model_gbt.transform(test_data)
 
 # Evaluate the performance of the model
-evaluator2_rmse = RegressionEvaluator(
-    labelCol="label", predictionCol="prediction", metricName="rmse"
-)
-evaluator2_r2 = RegressionEvaluator(
-    labelCol="label", predictionCol="prediction", metricName="r2"
-)
-evaluator2_mape = MAPEEvaluator(label_col="label", prediction_col="prediction")
-
-rmse_gbt = evaluator2_rmse.evaluate(predictions)
-r2_gbt = evaluator2_r2.evaluate(predictions)
-mape_gbt = evaluator2_mape.evaluate(predictions)
+rmse_gbt = evaluator_rmse.evaluate(predictions)
+r2_gbt = evaluator_r2.evaluate(predictions)
+mape_gbt = evaluator_mape.evaluate(predictions)
 
 # Hyperparameter optimization
-grid = ParamGridBuilder()
 grid = (
     ParamGridBuilder()
     .addGrid(model_gbt.maxDepth, [5, 10])
@@ -679,7 +666,7 @@ grid = (
 cv = CrossValidator(
     estimator=gbt,
     estimatorParamMaps=grid,
-    evaluator=evaluator2_mape,
+    evaluator=evaluator_mape,
     parallelism=5,
     numFolds=3,
 )
@@ -707,17 +694,9 @@ run(
 )
 
 # Evaluate the performance of the best model
-evaluator2_rmse = RegressionEvaluator(
-    labelCol="label", predictionCol="prediction", metricName="rmse"
-)
-evaluator2_r2 = RegressionEvaluator(
-    labelCol="label", predictionCol="prediction", metricName="r2"
-)
-evaluator2_mape = MAPEEvaluator(label_col="label", prediction_col="prediction")
-
-rmse2 = evaluator2_rmse.evaluate(predictions)
-r2_2 = evaluator2_r2.evaluate(predictions)
-mape2 = evaluator2_mape.evaluate(predictions)
+rmse2 = evaluator_rmse.evaluate(predictions)
+r2_2 = evaluator_r2.evaluate(predictions)
+mape2 = evaluator_mape.evaluate(predictions)
 
 # Compare best models
 # Create dataframe to report performance of the models
