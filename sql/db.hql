@@ -131,7 +131,7 @@ FROM funding_rounds
 LIMIT 5;
 
 
--- Create external table with buckets
+-- Create external table objects_part with partitions
 CREATE EXTERNAL TABLE objects_part
 (
     id                  VARCHAR(255),
@@ -178,11 +178,6 @@ CREATE EXTERNAL TABLE objects_part
     LOCATION 'project/hive/warehouse/objects_part'
     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
 
--- funding_rounds partition by funded_at_year(new column) where year >= 2000
--- objects partition by (entity_type, category_code) where (category_code, country_code, funded_at) NOT NULL
--- degrees bucketing by (degree_type) into 256 buckets
-
-
 INSERT OVERWRITE TABLE objects_part
     PARTITION (entity_type, category_code)
 SELECT id,
@@ -227,7 +222,7 @@ SELECT id,
        category_code
 FROM objects;
 
--- Create external table with partitions 
+-- Create external table funding_rounds_part with partitions
 CREATE EXTERNAL TABLE funding_rounds_part
 (
     id                       INTEGER,
