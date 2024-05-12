@@ -35,9 +35,9 @@ spark = (
     .config("hive.metastore.uris", "thrift://hadoop-02.uni.innopolis.ru:9883")
     .config("spark.sql.warehouse.dir", WAREHOUSE)
     .config("spark.sql.avro.compression.codec", "snappy")
-    .config("spark.executor.instances", 8)
-    .config("spark.executor.cores", 1)
-    .config("spark.executor.memory", "2g")
+    .config("spark.executor.instances", 4)
+    .config("spark.executor.cores", 2)
+    .config("spark.executor.memory", "1g")
     .config("spark.dynamicAllocation.enabled", "false")
     .enableHiveSupport()
     .getOrCreate()
@@ -391,7 +391,7 @@ periods = [12, 31]  # periods for months and days accordingly
 
 
 # Build a custom transformer to encode cyclical features
-# pylint: disable=all
+# pylint: disable=too-many-ancestors,protected-access,no-member,unused-argument
 class CyclicTransformer(
     Transformer, HasInputCol, HasOutputCol, DefaultParamsReadable, DefaultParamsWritable
 ):

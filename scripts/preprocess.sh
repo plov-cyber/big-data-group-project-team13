@@ -3,6 +3,7 @@
 # Clean local files
 rm data/*
 rm output/*
+rm models/*
 rm -rf scripts/.ipynb_checkpoints
 rm -rf sql/.ipynb_checkpoints
 
