@@ -1,0 +1,85 @@
+{
+  "type" : "record",
+  "name" : "ipos",
+  "doc" : "Sqoop import of ipos",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "ipo_id",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "ipo_id",
+    "sqlType" : "-5"
+  }, {
+    "name" : "object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "valuation_amount",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "valuation_amount",
+    "sqlType" : "2"
+  }, {
+    "name" : "valuation_currency_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "valuation_currency_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "raised_amount",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "raised_amount",
+    "sqlType" : "2"
+  }, {
+    "name" : "raised_currency_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "raised_currency_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "public_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "public_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "stock_symbol",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "stock_symbol",
+    "sqlType" : "12"
+  }, {
+    "name" : "source_url",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_url",
+    "sqlType" : "12"
+  }, {
+    "name" : "source_description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_description",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "ipos"
+}

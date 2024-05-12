@@ -1,0 +1,61 @@
+{
+  "type" : "record",
+  "name" : "milestones",
+  "doc" : "Sqoop import of milestones",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "milestone_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "milestone_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "milestone_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "milestone_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "description",
+    "sqlType" : "12"
+  }, {
+    "name" : "source_url",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_url",
+    "sqlType" : "12"
+  }, {
+    "name" : "source_description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_description",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "milestones"
+}

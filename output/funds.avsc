@@ -1,0 +1,73 @@
+{
+  "type" : "record",
+  "name" : "funds",
+  "doc" : "Sqoop import of funds",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "fund_id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "fund_id",
+    "sqlType" : "4"
+  }, {
+    "name" : "object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "name",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "name",
+    "sqlType" : "12"
+  }, {
+    "name" : "funded_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "funded_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "raised_amount",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "raised_amount",
+    "sqlType" : "2"
+  }, {
+    "name" : "raised_currency_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "raised_currency_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "source_url",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_url",
+    "sqlType" : "12"
+  }, {
+    "name" : "source_description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_description",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "funds"
+}

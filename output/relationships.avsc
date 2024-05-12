@@ -1,0 +1,73 @@
+{
+  "type" : "record",
+  "name" : "relationships",
+  "doc" : "Sqoop import of relationships",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "relationship_id",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "relationship_id",
+    "sqlType" : "-5"
+  }, {
+    "name" : "person_object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "person_object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "relationship_object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "relationship_object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "start_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "start_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "end_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "end_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "is_past",
+    "type" : [ "null", "boolean" ],
+    "default" : null,
+    "columnName" : "is_past",
+    "sqlType" : "-7"
+  }, {
+    "name" : "sequence",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "sequence",
+    "sqlType" : "-5"
+  }, {
+    "name" : "title",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "title",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "relationships"
+}

@@ -1,0 +1,126 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team13_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q4_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q4_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_round_type    STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     raised_amount_mln_usd FLOAT
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q4';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q4_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT funding_round_type, ROUND(raised_amount_usd / POW(10, 6), 2) AS raised_amount_mln_usd
+. . . . . . . . . . . . . . . . . . . . . . .> FROM funding_rounds_part
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE raised_amount_usd < 500000000;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q4_results
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 100;
++---------------------+------------------------+
+| funding_round_type  | raised_amount_mln_usd  |
++---------------------+------------------------+
+| angel               | 0.32                   |
+| series-a            | 5.23                   |
+| angel               | 0.22                   |
+| angel               | 0.73                   |
+| series-b            | 12.0                   |
+| series-a            | 4.9                    |
+| angel               | 0.3                    |
+| angel               | 0.26                   |
+| series-a            | 10.57                  |
+| venture             | 0.0                    |
+| angel               | 0.0                    |
+| series-b            | 27.0                   |
+| series-a            | 1.85                   |
+| series-a            | 11.5                   |
+| series-a            | 1.0                    |
+| other               | 0.2                    |
+| series-a            | 3.31                   |
+| series-a            | 3.0                    |
+| series-a            | 2.5                    |
+| angel               | 0.0                    |
+| angel               | 0.1                    |
+| angel               | 1.25                   |
+| series-a            | 5.0                    |
+| series-a            | 2.8                    |
+| series-a            | 3.0                    |
+| series-a            | 1.9                    |
+| series-c+           | 55.8                   |
+| series-a            | 0.88                   |
+| series-a            | 0.75                   |
+| venture             | 0.5                    |
+| series-a            | 3.98                   |
+| series-a            | 2.0                    |
+| series-a            | 1.0                    |
+| venture             | 3.0                    |
+| angel               | 0.08                   |
+| series-b            | 4.13                   |
+| series-a            | 2.57                   |
+| series-a            | 1.35                   |
+| series-a            | 4.0                    |
+| angel               | 0.11                   |
+| series-a            | 6.0                    |
+| angel               | 0.8                    |
+| angel               | 0.0                    |
+| angel               | 1.12                   |
+| series-a            | 8.5                    |
+| other               | 0.29                   |
+| angel               | 0.24                   |
+| angel               | 0.25                   |
+| series-a            | 7.72                   |
+| angel               | 0.79                   |
+| angel               | 0.15                   |
+| angel               | 1.0                    |
+| venture             | 0.51                   |
+| angel               | 1.15                   |
+| series-a            | 2.3                    |
+| venture             | 0.69                   |
+| angel               | 1.05                   |
+| series-a            | 2.7                    |
+| series-b            | 41.5                   |
+| angel               | 0.5                    |
+| angel               | 0.55                   |
+| angel               | 0.3                    |
+| angel               | 0.6                    |
+| series-a            | 3.5                    |
+| angel               | 0.52                   |
+| angel               | 0.6                    |
+| series-a            | 3.2                    |
+| angel               | 0.2                    |
+| angel               | 0.57                   |
+| series-a            | 0.0                    |
+| angel               | 0.0                    |
+| series-a            | 4.0                    |
+| series-a            | 4.3                    |
+| angel               | 0.01                   |
+| angel               | 1.0                    |
+| angel               | 0.2                    |
+| series-a            | 0.7                    |
+| angel               | 1.4                    |
+| series-a            | 4.0                    |
+| angel               | 0.06                   |
+| series-a            | 1.7                    |
+| angel               | 0.15                   |
+| angel               | 0.14                   |
+| angel               | 0.35                   |
+| angel               | 0.0                    |
+| series-c+           | 24.4                   |
+| series-a            | 2.0                    |
+| series-a            | 1.5                    |
+| series-c+           | 11.5                   |
+| angel               | 0.14                   |
+| angel               | 1.2                    |
+| angel               | 0.15                   |
+| angel               | 0.39                   |
+| series-b            | 11.0                   |
+| series-a            | 5.0                    |
+| series-b            | 1.63                   |
+| series-c+           | 15.0                   |
+| other               | 5.0                    |
+| venture             | 3.23                   |
+| venture             | 0.0                    |
++---------------------+------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

@@ -1,0 +1,97 @@
+{
+  "type" : "record",
+  "name" : "offices",
+  "doc" : "Sqoop import of offices",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "office_id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "office_id",
+    "sqlType" : "4"
+  }, {
+    "name" : "description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "description",
+    "sqlType" : "12"
+  }, {
+    "name" : "region",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "region",
+    "sqlType" : "12"
+  }, {
+    "name" : "address1",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "address1",
+    "sqlType" : "12"
+  }, {
+    "name" : "address2",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "address2",
+    "sqlType" : "12"
+  }, {
+    "name" : "city",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "city",
+    "sqlType" : "12"
+  }, {
+    "name" : "zip_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "zip_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "state_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "state_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "country_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "country_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "latitude",
+    "type" : [ "null", "double" ],
+    "default" : null,
+    "columnName" : "latitude",
+    "sqlType" : "8"
+  }, {
+    "name" : "longitude",
+    "type" : [ "null", "double" ],
+    "default" : null,
+    "columnName" : "longitude",
+    "sqlType" : "8"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "offices"
+}

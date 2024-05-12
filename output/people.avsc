@@ -1,0 +1,43 @@
+{
+  "type" : "record",
+  "name" : "people",
+  "doc" : "Sqoop import of people",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "first_name",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "first_name",
+    "sqlType" : "12"
+  }, {
+    "name" : "last_name",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "last_name",
+    "sqlType" : "12"
+  }, {
+    "name" : "birthplace",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "birthplace",
+    "sqlType" : "12"
+  }, {
+    "name" : "affiliation_name",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "affiliation_name",
+    "sqlType" : "12"
+  } ],
+  "tableName" : "people"
+}

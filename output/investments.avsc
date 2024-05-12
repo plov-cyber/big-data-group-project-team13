@@ -1,0 +1,43 @@
+{
+  "type" : "record",
+  "name" : "investments",
+  "doc" : "Sqoop import of investments",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "funding_round_id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "funding_round_id",
+    "sqlType" : "4"
+  }, {
+    "name" : "funded_object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "funded_object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "investor_object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "investor_object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "investments"
+}

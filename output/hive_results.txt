@@ -1,0 +1,425 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.exec.dynamic.partition=true;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.exec.dynamic.partition.mode=nonstrict;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP DATABASE IF EXISTS team13_projectdb CASCADE;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Creating database
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE DATABASE team13_projectdb
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION "project/hive/warehouse";
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team13_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Creating external tables
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- acquisitions table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE acquisitions
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/acquisitions'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/acquisitions.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- objects table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE objects
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/objects'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/objects.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- people table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE people
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/people'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/people.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- offices table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE offices
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/offices'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/offices.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- relationships table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE relationships
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/relationships'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/relationships.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- milestones table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE milestones
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/milestones'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/milestones.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- ipos table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE ipos
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/ipos'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/ipos.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- degrees table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE degrees
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/degrees'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/degrees.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- investments table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE investments
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/investments'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/investments.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- funds table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE funds
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/funds'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/funds.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- funding_rounds table
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE funding_rounds
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/warehouse/funding_rounds'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/funding_rounds.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- For checking the content of tables
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM acquisitions
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++------------------+------------------------------+-----------------------------------+----------------------------------+-------------------------+----------------------------+-----------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+--------------------------+--------------------------+
+| acquisitions.id  | acquisitions.acquisition_id  | acquisitions.acquiring_object_id  | acquisitions.acquired_object_id  | acquisitions.term_code  | acquisitions.price_amount  | acquisitions.price_currency_code  | acquisitions.acquired_at  |              acquisitions.source_url               |          acquisitions.source_description           | acquisitions.created_at  | acquisitions.updated_at  |
++------------------+------------------------------+-----------------------------------+----------------------------------+-------------------------+----------------------------+-----------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+--------------------------+--------------------------+
+| 1                | 1                            | c:11                              | c:10                             | NULL                    | 20000000.00                | USD                               | 1180468800000             | http://venturebeat.com/2007/05/30/fox-interactive-confirms-purchase-of-photobucket-and-flektor/ | Fox Interactive confirms purchase of Photobucket and Flektor | 1180635594000            | 1211383424000            |
+| 2                | 7                            | c:59                              | c:72                             | cash                    | 60000000.00                | USD                               | 1183233600000             | http://www.techcrunch.com/2007/07/02/deal-is-confirmed-google-acquired-grandcentral/ | Deal is Confirmed: Google Acquired GrandCentral    | 1183436090000            | 1304704265000            |
+| 3                | 8                            | c:24                              | c:132                            | cash                    | 280000000.00               | USD                               | 1177963200000             | http://www.techcrunch.com/2007/05/30/cbs-acquires-lastfm-for-280m/ | CBS Acquires Europe???s Last.fm for $280 million   | 1184199564000            | 1211158130000            |
+| 4                | 9                            | c:59                              | c:155                            | cash                    | 100000000.00               | USD                               | 1180641600000             | http://techcrunch.com/2007/05/23/100-million-payday-for-feedburner-this-deal-is-confirmed/ | $100 Million Payday For Feedburner ? This Deal Is Confirmed | 1184305979000            | 1338852137000            |
+| 5                | 10                           | c:212                             | c:215                            | cash                    | 25000000.00                | USD                               | 1183233600000             | http://blog.seattlepi.nwsource.com/venture/archives/118242.asp | seatlepi.com                                       | 1184894947000            | 1203888227000            |
++------------------+------------------------------+-----------------------------------+----------------------------------+-------------------------+----------------------------+-----------------------------------+---------------------------+----------------------------------------------------+----------------------------------------------------+--------------------------+--------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM objects
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++-------------+----------------------+--------------------+--------------------+---------------------+--------------------------+------------------------------+------------------------+-----------------+---------------------+--------------------+-----------------------+------------------------------+---------------------------+----------------------------------------------------+---------------------+----------------------+----------------------------+------------------------------+----------------------------------------------------+----------------------------------------------------+-----------------------+---------------------+---------------+-----------------+------------------------------+-----------------------------+----------------------------+-----------------------------+---------------------------+--------------------------+-------------------------+----------------------------+-----------------------------+----------------------------+---------------------+------------------------+---------------------+---------------------+---------------------+
+| objects.id  | objects.entity_type  | objects.entity_id  | objects.parent_id  |    objects.name     | objects.normalized_name  |      objects.permalink       | objects.category_code  | objects.status  | objects.founded_at  | objects.closed_at  |    objects.domain     |     objects.homepage_url     | objects.twitter_username  |                  objects.logo_url                  | objects.logo_width  | objects.logo_height  | objects.short_description  |     objects.description      |                  objects.overview                  |                  objects.tag_list                  | objects.country_code  | objects.state_code  | objects.city  | objects.region  | objects.first_investment_at  | objects.last_investment_at  | objects.investment_rounds  | objects.invested_companies  | objects.first_funding_at  | objects.last_funding_at  | objects.funding_rounds  | objects.funding_total_usd  | objects.first_milestone_at  | objects.last_milestone_at  | objects.milestones  | objects.relationships  | objects.created_by  | objects.created_at  | objects.updated_at  |
++-------------+----------------------+--------------------+--------------------+---------------------+--------------------------+------------------------------+------------------------+-----------------+---------------------+--------------------+-----------------------+------------------------------+---------------------------+----------------------------------------------------+---------------------+----------------------+----------------------------+------------------------------+----------------------------------------------------+----------------------------------------------------+-----------------------+---------------------+---------------+-----------------+------------------------------+-----------------------------+----------------------------+-----------------------------+---------------------------+--------------------------+-------------------------+----------------------------+-----------------------------+----------------------------+---------------------+------------------------+---------------------+---------------------+---------------------+
+| c:1         | Company              | 1                  | NULL               | Wetpaint            | wetpaint                 | /company/wetpaint            | web                    | operating       | 1129492800000       | NULL               | wetpaint-inc.com      | http://wetpaint-inc.com      | BachelrWetpaint           | http://s3.amazonaws.com/crunchbase_prod_assets/assets/images/resized/0000/3601/3601v1-max-250x250.png | 401                 | 54                   | NULL                       | Technology Platform Company  | Wetpaint is a technology platform company that uses its proprietary state-of-the-art technology and expertise in social media to build and monetize audiences for digital publishers. Wetpaint?s own online property, Wetpaint Entertainment, an entertainment news site that attracts more than 12 million unique visitors monthly and has over 2 million Facebook fans, is a proof point to the company?s success in building and engaging audiences. Media companies can license Wetpaint?s platform which includes a dynamic playbook tailored to their individual needs and comprehensive training. Founded by Internet pioneer Ben Elowitz, and with offices in New York and Seattle, Wetpaint is backed by Accel Partners, the investors behind Facebook. | wiki, seattle, elowitz, media-industry, media-platform, social-distribution-system | USA                   | WA                  | Seattle       | Seattle         | NULL                         | NULL                        | 0                          | 0                           | 1128110400000             | 1211140800000            | 3                       | 39750000.00                | 1283630400000               | 1379448000000              | 5                   | 17                     | initial-importer    | 1180061487000       | 1365809340000       |
+| c:10        | Company              | 10                 | NULL               | Flektor             | flektor                  | /company/flektor             | games_video            | acquired        | NULL                | NULL               | flektor.com           | http://www.flektor.com       | NULL                      | http://s3.amazonaws.com/crunchbase_prod_assets/assets/images/resized/0000/2398/2398v4-max-250x250.png | 186                 | 85                   | NULL                       | NULL                         | Flektor is a rich-media mash-up platform that enables consumers to create, remix and share photos and videos on the internet without the need for advanced video-editing skills or software.
+
+Fox Interactive Media, a division of News Corporation, announced that it had completed the purchase of Flektor on May 30, 2007.  The estimated puchase price is $15-20 million. | flektor, photo, video                              | USA                   | CA                  | Culver City   | Los Angeles     | NULL                         | NULL                        | 0                          | 0                           | NULL                      | NULL                     | 0                       | 0.00                       | NULL                        | NULL                       | 0                   | 6                      | initial-importer    | 1180631511000       | 1211570594000       |
+| c:100       | Company              | 100                | NULL               | There               | there                    | /company/there               | games_video            | acquired        | NULL                | NULL               | there.com             | http://www.there.com         | NULL                      | http://s3.amazonaws.com/crunchbase_prod_assets/assets/images/resized/0000/4057/4057v25-max-250x250.png | 107                 | 34                   | NULL                       | NULL                         | There.com is an online virtual world where anyone can explore, meet friends and play games. It was founded in 1998 by Will Harvey, a Stanford computer science Ph.D. and game developer, and Jeffrey Ventrella, an expert on artificial life from MIT's Media Lab. The duo raised approximately $37 million - including $20 million from employees, $11 million from angel investors and $6 million from Sutter Hill Ventures. In 2005 the company was spun off under Makena Technologies, and in March 2010 There closed to the public. In May 2011, There announced it would reopen as a 18+ Cloud-based service. As of Nov 2013, There is open.
+
+There.com is a subscription service with a monthly fee of $10.00. Additional in-game accessories can be purchased for separate fees.
+
+Other online virtual worlds include [Kaneva](http://www.crunchbase.com/company/kaneva), [Second Life](http://www.crunchbase.com/company/secondlife) and [Cyworld](http://www.crunchbase.com/company/cyworld). | virtualworld, there, teens                         | USA                   | CA                  | San Mateo     | SF Bay          | NULL                         | NULL                        | 0                          | 0                           | NULL                      | NULL                     | 0                       | 0.00                       | 1044046800000               | 1316721600000              | 4                   | 12                     | initial-importer    | 1186429965000       | 1383516588000       |
+| c:10000     | Company              | 10000              | NULL               | MYWEBBO             | mywebbo                  | /company/mywebbo             | network_hosting        | operating       | 1217016000000       | NULL               | mywebbo.com           | http://www.mywebbo.com       | NULL                      | NULL                                               | 0                   | 0                    | NULL                       | NULL                         | BRAND NEW ONLINE SOCIAL NETWORKING WEBSITE,FOR MAKING NEW FRIENDS OR CHATTING TO OLD ONE'S.
+
+PACKED WITH NEW FEATURES SUCH AS RATING PROFILES , RATING MUSIC,VIDEO'S AND PICTURES ,UPLOADING MUSIC ,VIDEO'S PICTURES , CREATING CLASSIFIED ADS ,SHOUTOUT BOX!, AND ONLINE CHAT AREA FOR MAKING NEW FRIENDS OR SIMPLY CHATTING TO YOUR OLD ONE'S ,THERE ARE LOADS OF GREAT FEATURES FOR ANYONE TO TRY .. PLUS MANY MORE TO COME . | social-network, new, website, web, friends, chat, people | NULL                  | NULL                | NULL          | unknown         | NULL                         | NULL                        | 0                          | 0                           | NULL                      | NULL                     | 0                       | 0.00                       | NULL                        | NULL                       | 0                   | 0                      | NULL                | 1219582317000       | 1220696358000       |
+| c:10001     | Company              | 10001              | NULL               | THE Movie Streamer  | the movie streamer       | /company/the-movie-streamer  | games_video            | operating       | 1217016000000       | NULL               | themoviestreamer.com  | http://themoviestreamer.com  | NULL                      | http://s3.amazonaws.com/crunchbase_prod_assets/assets/images/resized/0002/4403/24403v2-max-250x250.jpg | 200                 | 74                   | NULL                       | NULL                         | This company shows free movies online on their website which, in fact, is not illegal since they are not the ones hosting the videos. | watch, full-length, moives, online, for, free, streaming, videos, tv-shows | NULL                  | NULL                | NULL          | unknown         | NULL                         | NULL                        | 0                          | 0                           | NULL                      | NULL                     | 0                       | 0.00                       | NULL                        | NULL                       | 0                   | 0                      | NULL                | 1219583434000       | 1220696358000       |
++-------------+----------------------+--------------------+--------------------+---------------------+--------------------------+------------------------------+------------------------+-----------------+---------------------+--------------------+-----------------------+------------------------------+---------------------------+----------------------------------------------------+---------------------+----------------------+----------------------------+------------------------------+----------------------------------------------------+----------------------------------------------------+-----------------------+---------------------+---------------+-----------------+------------------------------+-----------------------------+----------------------------+-----------------------------+---------------------------+--------------------------+-------------------------+----------------------------+-----------------------------+----------------------------+---------------------+------------------------+---------------------+---------------------+---------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM people
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++------------+-------------------+--------------------+-------------------+--------------------+--------------------------+
+| people.id  | people.object_id  | people.first_name  | people.last_name  | people.birthplace  | people.affiliation_name  |
++------------+-------------------+--------------------+-------------------+--------------------+--------------------------+
+| 1          | p:2               | Ben                | Elowitz           | NULL               | Blue Nile                |
+| 2          | p:3               | Kevin              | Flaherty          | NULL               | Wetpaint                 |
+| 3          | p:4               | Raju               | Vegesna           | NULL               | Zoho                     |
+| 4          | p:5               | Ian                | Wenig             | NULL               | Zoho                     |
+| 5          | p:6               | Kevin              | Rose              | Redding, CA        | i/o Ventures             |
++------------+-------------------+--------------------+-------------------+--------------------+--------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM offices
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++-------------+--------------------+--------------------+----------------------+-----------------+---------------------+-------------------+----------------+-------------------+---------------------+-----------------------+-------------------+----------------------+---------------------+---------------------+
+| offices.id  | offices.object_id  | offices.office_id  | offices.description  | offices.region  |  offices.address1   | offices.address2  |  offices.city  | offices.zip_code  | offices.state_code  | offices.country_code  | offices.latitude  |  offices.longitude   | offices.created_at  | offices.updated_at  |
++-------------+--------------------+--------------------+----------------------+-----------------+---------------------+-------------------+----------------+-------------------+---------------------+-----------------------+-------------------+----------------------+---------------------+---------------------+
+| 1           | c:1                | 1                  | NULL                 | Seattle         | 710 - 2nd Avenue    | Suite 1100        | Seattle        | 98104             | WA                  | USA                   | 47.603122         | -122.333253          | NULL                | NULL                |
+| 2           | c:3                | 3                  | Headquarters         | SF Bay          | 4900 Hopyard Rd     | Suite 310         | Pleasanton     | 94588             | CA                  | USA                   | 37.692934         | -121.904945          | NULL                | NULL                |
+| 3           | c:4                | 4                  | NULL                 | SF Bay          | 135 Mississippi St  | NULL              | San Francisco  | 94107             | CA                  | USA                   | 37.764726         | -122.39452299999999  | NULL                | NULL                |
+| 4           | c:5                | 5                  | Headquarters         | SF Bay          | 1601 Willow Road    | NULL              | Menlo Park     | 94025             | CA                  | USA                   | 37.41605          | -122.151801          | NULL                | NULL                |
+| 5           | c:7                | 7                  | NULL                 | SF Bay          | Suite 200           | 654 High Street   | Palo Alto      | 94301             | CA                  | ISR                   | 0.0               | 0.0                  | NULL                | NULL                |
++-------------+--------------------+--------------------+----------------------+-----------------+---------------------+-------------------+----------------+-------------------+---------------------+-----------------------+-------------------+----------------------+---------------------+---------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM relationships
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++-------------------+--------------------------------+---------------------------------+---------------------------------------+-------------------------+-----------------------+------------------------+-------------------------+--------------------------------------+---------------------------+---------------------------+
+| relationships.id  | relationships.relationship_id  | relationships.person_object_id  | relationships.relationship_object_id  | relationships.start_at  | relationships.end_at  | relationships.is_past  | relationships.sequence  |         relationships.title          | relationships.created_at  | relationships.updated_at  |
++-------------------+--------------------------------+---------------------------------+---------------------------------------+-------------------------+-----------------------+------------------------+-------------------------+--------------------------------------+---------------------------+---------------------------+
+| 1                 | 1                              | p:2                             | c:1                                   | NULL                    | NULL                  | false                  | 8                       | Co-Founder/CEO/Board of Directors    | 1180062234000             | 1370239126000             |
+| 2                 | 2                              | p:3                             | c:1                                   | NULL                    | NULL                  | true                   | 279242                  | VP Marketing                         | 1180062256000             | 1274445094000             |
+| 3                 | 3                              | p:4                             | c:3                                   | NULL                    | NULL                  | false                  | 4                       | Evangelist                           | 1180107183000             | 1372498618000             |
+| 4                 | 4                              | p:5                             | c:3                                   | 1141160400000           | 1259614800000         | true                   | 4                       | Senior Director Strategic Alliances  | 1180107293000             | 1372487134000             |
+| 6                 | 6                              | p:7                             | c:4                                   | 1120161600000           | 1270411200000         | true                   | 1                       | Chief Executive Officer              | 1180109133000             | 1270478501000             |
++-------------------+--------------------------------+---------------------------------+---------------------------------------+-------------------------+-----------------------+------------------------+-------------------------+--------------------------------------+---------------------------+---------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM milestones
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++----------------+-----------------------+--------------------------+----------------------------+----------------------------------------------------+----------------------------------------------------+----------------------------------------------------+------------------------+------------------------+
+| milestones.id  | milestones.object_id  | milestones.milestone_at  | milestones.milestone_code  |               milestones.description               |               milestones.source_url                |           milestones.source_description            | milestones.created_at  | milestones.updated_at  |
++----------------+-----------------------+--------------------------+----------------------------+----------------------------------------------------+----------------------------------------------------+----------------------------------------------------+------------------------+------------------------+
+| 1              | c:12                  | 1212955200000            | other                      | Survives iPhone 3G Stevenote                       | http://www.techcrunch.com/2008/06/10/twitter-fails-to-fail-community-rejoices/ | Twitter Fails To Fail, Community Rejoices          | 1213762446000          | 1213762446000          |
+| 2              | c:3138                | 1213646400000            | other                      | Twhirl announces support for Seesmic video playback.  | http://www.inquisitr.com/1103/seesmic-now-available-in-twhirl/ | Seesmic Now Available In Twhirl                    | 1213764388000          | 1213764388000          |
+| 3              | c:59                  | 1213732800000            | other                      | More than 4 Billion videos viewed at Google Sites, 37.9% according to comScore | http://www.comscore.com/press/release.asp?press=2268 | 11 Billion Videos Viewed Online in the U.S. in April 2008 | 1213764624000          | 1213764624000          |
+| 4              | c:314                 | 1213732800000            | other                      | Reddit goes Open Source                            | http://blog.reddit.com/2008/06/reddit-goes-open-source.html | reddit goes open source                            | 1213834440000          | 1213834440000          |
+| 5              | c:314                 | 1200949200000            | other                      | Adds the ability to create your own Reddits        | http://www.techcrunch.com/2008/01/22/reddit-adds-ability-to-create-your-own-reddits/ | Reddit Adds Ability to Create Your Own ???Reddits??? | 1213834553000          | 1213834553000          |
++----------------+-----------------------+--------------------------+----------------------------+----------------------------------------------------+----------------------------------------------------+----------------------------------------------------+------------------------+------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM ipos
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++----------+--------------+-----------------+------------------------+-------------------------------+---------------------+----------------------------+-----------------+--------------------+------------------+--------------------------+------------------+------------------+
+| ipos.id  | ipos.ipo_id  | ipos.object_id  | ipos.valuation_amount  | ipos.valuation_currency_code  | ipos.raised_amount  | ipos.raised_currency_code  | ipos.public_at  | ipos.stock_symbol  | ipos.source_url  | ipos.source_description  | ipos.created_at  | ipos.updated_at  |
++----------+--------------+-----------------+------------------------+-------------------------------+---------------------+----------------------------+-----------------+--------------------+------------------+--------------------------+------------------+------------------+
+| 1        | 1            | c:1654          | 0.00                   | USD                           | 0.00                | USD                        | 346021200000    | NASDAQ:AAPL        | NULL             | NULL                     | 1202523465000    | 1334188979000    |
+| 2        | 2            | c:1242          | 0.00                   | USD                           | 0.00                | NULL                       | 511045200000    | NASDAQ:MSFT        | NULL             | NULL                     | 1202523918000    | 1292060386000    |
+| 3        | 3            | c:342           | 0.00                   | USD                           | 0.00                | NULL                       | -17809200000    | NYSE:DIS           | NULL             | NULL                     | 1202524832000    | 1293083896000    |
+| 4        | 4            | c:59            | 0.00                   | USD                           | 0.00                | NULL                       | 1093377600000   | NASDAQ:GOOG        | NULL             | NULL                     | 1202673084000    | 1312217228000    |
+| 5        | 5            | c:317           | 100000000000.00        | USD                           | 0.00                | NULL                       | 862430400000    | NASDAQ:AMZN        | NULL             | NULL                     | 1202675289000    | 1312218682000    |
++----------+--------------+-----------------+------------------------+-------------------------------+---------------------+----------------------------+-----------------+--------------------+------------------+--------------------------+------------------+------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM degrees
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++-------------+--------------------+----------------------+-------------------------------+-----------------------------------+-----------------------+---------------------+---------------------+
+| degrees.id  | degrees.object_id  | degrees.degree_type  |        degrees.subject        |        degrees.institution        | degrees.graduated_at  | degrees.created_at  | degrees.updated_at  |
++-------------+--------------------+----------------------+-------------------------------+-----------------------------------+-----------------------+---------------------+---------------------+
+| 1           | p:6117             | MBA                  | NULL                          | NULL                              | NULL                  | 1203380256000       | 1203380256000       |
+| 2           | p:6136             | BA                   | English, French               | Washington University, St. Louis  | 631141200000          | 1203433111000       | 1203888235000       |
+| 3           | p:6136             | MS                   | Mass Communication            | Boston University                 | 694216800000          | 1203433111000       | 1203888235000       |
+| 4           | p:6005             | MS                   | Internet Technology           | University of Greenwich           | 1136062800000         | 1203453640000       | 1203888235000       |
+| 5           | p:5832             | BCS                  | Computer Science, Psychology  | Rice University                   | NULL                  | 1203474489000       | 1203474489000       |
++-------------+--------------------+----------------------+-------------------------------+-----------------------------------+-----------------------+---------------------+---------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM investments
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++-----------------+-------------------------------+-------------------------------+---------------------------------+-------------------------+-------------------------+
+| investments.id  | investments.funding_round_id  | investments.funded_object_id  | investments.investor_object_id  | investments.created_at  | investments.updated_at  |
++-----------------+-------------------------------+-------------------------------+---------------------------------+-------------------------+-------------------------+
+| 1               | 1                             | c:4                           | f:1                             | 1183510377000           | 1204143269000           |
+| 2               | 1                             | c:4                           | f:2                             | 1183510377000           | 1204143269000           |
+| 3               | 3                             | c:5                           | f:4                             | 1180231750000           | 1372435643000           |
+| 4               | 4                             | c:5                           | f:1                             | 1180231776000           | 1372435644000           |
+| 5               | 4                             | c:5                           | f:5                             | 1180231776000           | 1372435644000           |
++-----------------+-------------------------------+-------------------------------+---------------------------------+-------------------------+-------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM funds
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++-----------+----------------+------------------+-----------------------------+------------------+----------------------+-----------------------------+----------------------------------------------------+----------------------------------------------------+-------------------+-------------------+
+| funds.id  | funds.fund_id  | funds.object_id  |         funds.name          | funds.funded_at  | funds.raised_amount  | funds.raised_currency_code  |                  funds.source_url                  |              funds.source_description              | funds.created_at  | funds.updated_at  |
++-----------+----------------+------------------+-----------------------------+------------------+----------------------+-----------------------------+----------------------------------------------------+----------------------------------------------------+-------------------+-------------------+
+| 1         | 1              | f:371            | Second Fund                 | 1229374800000    | 300000000.00         | USD                         | http://www.pehub.com/26194/dfj-dragon-raising-second-fund/ | peHub                                              | 1229472436000     | 1229472436000     |
+| 4         | 4              | f:17             | Sequoia Israel Fourth Fund  | 1229461200000    | 200750000.00         | USD                         | http://www.pehub.com/26725/sequoia-israel-raises-fourth-fund/ | Sequoia Israel Raises Fourth Fund                  | 1229627082000     | 1229627082000     |
+| 5         | 5              | f:951            | Tenth fund                  | 1218398400000    | 650000000.00         | USD                         | http://venturebeat.com/2008/08/11/interwest-closes-650m-fund/ | Venture Beat                                       | 1230706071000     | 1230706071000     |
+| 6         | 6              | f:192            | New funds acquire           | NULL             | 625000000.00         | USD                         | http://venturebeat.com/2008/07/28/us-venture-partners-raises-625m-fund-for-new-investments/ | U.S. Venture Partners raises $625M fund for new investments | 1230822824000     | 1230822987000     |
+| 7         | 7              | f:519            | Third fund                  | 1211227200000    | 200000000.00         | USD                         | http://venturebeat.com/2008/05/20/disneys-steamboat-ventures-looking-to-raise-200m-fund/ | Venture Beat                                       | 1230965518000     | 1378211694000     |
++-----------+----------------+------------------+-----------------------------+------------------+----------------------+-----------------------------+----------------------------------------------------+----------------------------------------------------+-------------------+-------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM funding_rounds
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++--------------------+----------------------------------+---------------------------+---------------------------+------------------------------------+------------------------------------+-----------------------------------+-------------------------------+--------------------------------------+-----------------------------------------+-------------------------------------+-----------------------------------------+------------------------------------------+--------------------------------------+------------------------------------------+------------------------------+--------------------------------+-------------------------------+----------------------------------------------------+----------------------------------------------------+----------------------------+----------------------------+----------------------------+
+| funding_rounds.id  | funding_rounds.funding_round_id  | funding_rounds.object_id  | funding_rounds.funded_at  | funding_rounds.funding_round_type  | funding_rounds.funding_round_code  | funding_rounds.raised_amount_usd  | funding_rounds.raised_amount  | funding_rounds.raised_currency_code  | funding_rounds.pre_money_valuation_usd  | funding_rounds.pre_money_valuation  | funding_rounds.pre_money_currency_code  | funding_rounds.post_money_valuation_usd  | funding_rounds.post_money_valuation  | funding_rounds.post_money_currency_code  | funding_rounds.participants  | funding_rounds.is_first_round  | funding_rounds.is_last_round  |             funding_rounds.source_url              |         funding_rounds.source_description          | funding_rounds.created_by  | funding_rounds.created_at  | funding_rounds.updated_at  |
++--------------------+----------------------------------+---------------------------+---------------------------+------------------------------------+------------------------------------+-----------------------------------+-------------------------------+--------------------------------------+-----------------------------------------+-------------------------------------+-----------------------------------------+------------------------------------------+--------------------------------------+------------------------------------------+------------------------------+--------------------------------+-------------------------------+----------------------------------------------------+----------------------------------------------------+----------------------------+----------------------------+----------------------------+
+| 1                  | 1                                | c:4                       | 1164920400000             | series-b                           | b                                  | 8500000.00                        | 8500000.00                    | USD                                  | 0.00                                    | 0.00                                | NULL                                    | 0.00                                     | 0.00                                 | NULL                                     | 2                            | 0                              | 0                             | http://www.marketingvox.com/archives/2006/12/29/digg-gets-85mm-in-funding/ | NULL                                               | initial-importer           | 1183510377000              | 1204143269000              |
+| 2                  | 2                                | c:5                       | 1093982400000             | angel                              | angel                              | 500000.00                         | 500000.00                     | USD                                  | 0.00                                    | 0.00                                | USD                                     | 0.00                                     | 0.00                                 | USD                                      | 2                            | 0                              | 1                             | NULL                                               | NULL                                               | initial-importer           | 1180231698000              | 1372435643000              |
+| 3                  | 3                                | c:5                       | 1114891200000             | series-a                           | a                                  | 12700000.00                       | 12700000.00                   | USD                                  | 115000000.00                            | 115000000.00                        | USD                                     | 0.00                                     | 0.00                                 | USD                                      | 3                            | 0                              | 0                             | http://www.techcrunch.com/2007/11/02/jim-breyer-extra-500-million-round-for-facebook-a-total-fiction/ | Jim Breyer: Extra $500 Million Round For Facebook A "Total Fiction" | initial-importer           | 1180231750000              | 1372435643000              |
+| 4                  | 4                                | c:5                       | 1143835200000             | series-b                           | b                                  | 27500000.00                       | 27500000.00                   | USD                                  | 525000000.00                            | 525000000.00                        | USD                                     | 0.00                                     | 0.00                                 | USD                                      | 4                            | 0                              | 0                             | http://www.facebook.com/press/info.php?factsheet   | Facebook Funding                                   | initial-importer           | 1180231776000              | 1372435644000              |
+| 5                  | 5                                | c:7299                    | 1146427200000             | series-b                           | b                                  | 10500000.00                       | 10500000.00                   | USD                                  | 0.00                                    | 0.00                                | NULL                                    | 0.00                                     | 0.00                                 | NULL                                     | 2                            | 0                              | 0                             | http://www.techcrunch.com/2006/05/14/photobucket-closes-105-from-trinity-ventures/ | PhotoBucket Closes $10.5M From Trinity Ventures    | initial-importer           | 1180422359000              | 1208351352000              |
++--------------------+----------------------------------+---------------------------+---------------------------+------------------------------------+------------------------------------+-----------------------------------+-------------------------------+--------------------------------------+-----------------------------------------+-------------------------------------+-----------------------------------------+------------------------------------------+--------------------------------------+------------------------------------------+------------------------------+--------------------------------+-------------------------------+----------------------------------------------------+----------------------------------------------------+----------------------------+----------------------------+----------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Create external table with buckets
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE objects_part
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     id                  VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     entity_id           BIGINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     parent_id           VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     name                VARCHAR(1024),
+. . . . . . . . . . . . . . . . . . . . . . .>     normalized_name     VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     permalink           VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     status              VARCHAR(50),
+. . . . . . . . . . . . . . . . . . . . . . .>     founded_at          DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     closed_at           DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     domain              VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     homepage_url        VARCHAR(500),
+. . . . . . . . . . . . . . . . . . . . . . .>     twitter_username    VARCHAR(50),
+. . . . . . . . . . . . . . . . . . . . . . .>     logo_url            VARCHAR(500),
+. . . . . . . . . . . . . . . . . . . . . . .>     logo_width          SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     logo_height         SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     short_description   STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     description         STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     overview            STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     tag_list            STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     country_code        VARCHAR(3),
+. . . . . . . . . . . . . . . . . . . . . . .>     state_code          VARCHAR(2),
+. . . . . . . . . . . . . . . . . . . . . . .>     city                VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     region              VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     first_investment_at DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     last_investment_at  DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     investment_rounds   SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     invested_companies  SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     first_funding_at    DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     last_funding_at     DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_rounds      SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_total_usd   NUMERIC(19, 2),
+. . . . . . . . . . . . . . . . . . . . . . .>     first_milestone_at  DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     last_milestone_at   DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     milestones          SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     relationships       SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     created_by          VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     created_at          TIMESTAMP,
+. . . . . . . . . . . . . . . . . . . . . . .>     updated_at          TIMESTAMP
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     PARTITIONED BY (entity_type STRING, category_code STRING)
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/hive/warehouse/objects_part'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- funding_rounds partition by funded_at_year(new column) where year >= 2000
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- objects partition by (entity_type, category_code) where (category_code, country_code, funded_at) NOT NULL
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- degrees bucketing by (degree_type) into 256 buckets
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT OVERWRITE TABLE objects_part
+. . . . . . . . . . . . . . . . . . . . . . .>     PARTITION (entity_type, category_code)
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT id,
+. . . . . . . . . . . . . . . . . . . . . . .>        entity_id,
+. . . . . . . . . . . . . . . . . . . . . . .>        parent_id,
+. . . . . . . . . . . . . . . . . . . . . . .>        name,
+. . . . . . . . . . . . . . . . . . . . . . .>        normalized_name,
+. . . . . . . . . . . . . . . . . . . . . . .>        permalink,
+. . . . . . . . . . . . . . . . . . . . . . .>        status,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(founded_at / 1000 AS BIGINT))          AS founded_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(closed_at / 1000 AS BIGINT))           AS closed_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        domain,
+. . . . . . . . . . . . . . . . . . . . . . .>        homepage_url,
+. . . . . . . . . . . . . . . . . . . . . . .>        twitter_username,
+. . . . . . . . . . . . . . . . . . . . . . .>        logo_url,
+. . . . . . . . . . . . . . . . . . . . . . .>        logo_width,
+. . . . . . . . . . . . . . . . . . . . . . .>        logo_height,
+. . . . . . . . . . . . . . . . . . . . . . .>        short_description,
+. . . . . . . . . . . . . . . . . . . . . . .>        description,
+. . . . . . . . . . . . . . . . . . . . . . .>        overview,
+. . . . . . . . . . . . . . . . . . . . . . .>        tag_list,
+. . . . . . . . . . . . . . . . . . . . . . .>        country_code,
+. . . . . . . . . . . . . . . . . . . . . . .>        state_code,
+. . . . . . . . . . . . . . . . . . . . . . .>        city,
+. . . . . . . . . . . . . . . . . . . . . . .>        region,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(first_investment_at / 1000 AS BIGINT)) AS first_investment_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(last_investment_at / 1000 AS BIGINT))  AS last_investment_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        investment_rounds,
+. . . . . . . . . . . . . . . . . . . . . . .>        invested_companies,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(first_funding_at / 1000 AS BIGINT))    AS first_funding_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(last_funding_at / 1000 AS BIGINT))     AS last_funding_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        funding_rounds,
+. . . . . . . . . . . . . . . . . . . . . . .>        funding_total_usd,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(first_milestone_at / 1000 AS BIGINT))  AS first_milestone_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(last_milestone_at / 1000 AS BIGINT))   AS last_milestone_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        milestones,
+. . . . . . . . . . . . . . . . . . . . . . .>        relationships,
+. . . . . . . . . . . . . . . . . . . . . . .>        created_by,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(created_at / 1000 AS BIGINT))          AS created_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(updated_at / 1000 AS BIGINT))          AS updated_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        entity_type,
+. . . . . . . . . . . . . . . . . . . . . . .>        category_code
+. . . . . . . . . . . . . . . . . . . . . . .> FROM objects;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Create external table with partitions 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE funding_rounds_part
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     id                       INTEGER,
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_round_id         BIGINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     object_id                VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     funded_at                DATE,
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_round_type       VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_round_code       VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     raised_amount_usd        NUMERIC(19, 2),
+. . . . . . . . . . . . . . . . . . . . . . .>     raised_amount            NUMERIC(19, 2),
+. . . . . . . . . . . . . . . . . . . . . . .>     raised_currency_code     VARCHAR(3),
+. . . . . . . . . . . . . . . . . . . . . . .>     pre_money_valuation_usd  NUMERIC(19, 2),
+. . . . . . . . . . . . . . . . . . . . . . .>     pre_money_valuation      NUMERIC(19, 2),
+. . . . . . . . . . . . . . . . . . . . . . .>     pre_money_currency_code  VARCHAR(3),
+. . . . . . . . . . . . . . . . . . . . . . .>     post_money_valuation_usd NUMERIC(19, 2),
+. . . . . . . . . . . . . . . . . . . . . . .>     post_money_valuation     NUMERIC(19, 2),
+. . . . . . . . . . . . . . . . . . . . . . .>     post_money_currency_code VARCHAR(3),
+. . . . . . . . . . . . . . . . . . . . . . .>     participants             SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     is_first_round           SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     is_last_round            SMALLINT,
+. . . . . . . . . . . . . . . . . . . . . . .>     source_url               STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     source_description       STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     created_by               VARCHAR(255),
+. . . . . . . . . . . . . . . . . . . . . . .>     created_at               TIMESTAMP,
+. . . . . . . . . . . . . . . . . . . . . . .>     updated_at               TIMESTAMP
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     PARTITIONED BY (funded_at_year STRING)
+. . . . . . . . . . . . . . . . . . . . . . .>     STORED AS AVRO
+. . . . . . . . . . . . . . . . . . . . . . .>     LOCATION 'project/hive/warehouse/funding_rounds_part'
+. . . . . . . . . . . . . . . . . . . . . . .>     TBLPROPERTIES ('AVRO.COMPRESS' = 'SNAPPY');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT OVERWRITE TABLE funding_rounds_part
+. . . . . . . . . . . . . . . . . . . . . . .>     PARTITION (funded_at_year)
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT id,
+. . . . . . . . . . . . . . . . . . . . . . .>        funding_round_id,
+. . . . . . . . . . . . . . . . . . . . . . .>        object_id,
+. . . . . . . . . . . . . . . . . . . . . . .>        from_unixtime(CAST(funded_at / 1000 AS BIGINT))       AS funded_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        funding_round_type,
+. . . . . . . . . . . . . . . . . . . . . . .>        funding_round_code,
+. . . . . . . . . . . . . . . . . . . . . . .>        raised_amount_usd,
+. . . . . . . . . . . . . . . . . . . . . . .>        raised_amount,
+. . . . . . . . . . . . . . . . . . . . . . .>        raised_currency_code,
+. . . . . . . . . . . . . . . . . . . . . . .>        pre_money_valuation_usd,
+. . . . . . . . . . . . . . . . . . . . . . .>        pre_money_valuation,
+. . . . . . . . . . . . . . . . . . . . . . .>        pre_money_currency_code,
+. . . . . . . . . . . . . . . . . . . . . . .>        post_money_valuation_usd,
+. . . . . . . . . . . . . . . . . . . . . . .>        post_money_valuation,
+. . . . . . . . . . . . . . . . . . . . . . .>        post_money_currency_code,
+. . . . . . . . . . . . . . . . . . . . . . .>        participants,
+. . . . . . . . . . . . . . . . . . . . . . .>        is_first_round,
+. . . . . . . . . . . . . . . . . . . . . . .>        is_last_round,
+. . . . . . . . . . . . . . . . . . . . . . .>        source_url,
+. . . . . . . . . . . . . . . . . . . . . . .>        source_description,
+. . . . . . . . . . . . . . . . . . . . . . .>        created_by,
+. . . . . . . . . . . . . . . . . . . . . . .>        created_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        updated_at,
+. . . . . . . . . . . . . . . . . . . . . . .>        year(from_unixtime(CAST(funded_at / 1000 AS BIGINT))) AS funded_at_year
+. . . . . . . . . . . . . . . . . . . . . . .> FROM funding_rounds
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE year(from_unixtime(CAST(funded_at / 1000 AS BIGINT))) >= 2000;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- For checking the content of tables with partitioning and bucketing
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM objects_part
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++------------------+-------------------------+-------------------------+-------------------------------+-------------------------------+----------------------------------------+----------------------+--------------------------+-------------------------+----------------------+----------------------------+--------------------------------+----------------------------------------------------+--------------------------+---------------------------+---------------------------------+---------------------------+----------------------------------------------------+------------------------+----------------------------+--------------------------+--------------------+----------------------+-----------------------------------+----------------------------------+---------------------------------+----------------------------------+--------------------------------+-------------------------------+------------------------------+---------------------------------+----------------------------------+---------------------------------+--------------------------+-----------------------------+--------------------------+--------------------------+--------------------------+---------------------------+-----------------------------+
+| objects_part.id  | objects_part.entity_id  | objects_part.parent_id  |       objects_part.name       | objects_part.normalized_name  |         objects_part.permalink         | objects_part.status  | objects_part.founded_at  | objects_part.closed_at  | objects_part.domain  | objects_part.homepage_url  | objects_part.twitter_username  |               objects_part.logo_url                | objects_part.logo_width  | objects_part.logo_height  | objects_part.short_description  | objects_part.description  |               objects_part.overview                | objects_part.tag_list  | objects_part.country_code  | objects_part.state_code  | objects_part.city  | objects_part.region  | objects_part.first_investment_at  | objects_part.last_investment_at  | objects_part.investment_rounds  | objects_part.invested_companies  | objects_part.first_funding_at  | objects_part.last_funding_at  | objects_part.funding_rounds  | objects_part.funding_total_usd  | objects_part.first_milestone_at  | objects_part.last_milestone_at  | objects_part.milestones  | objects_part.relationships  | objects_part.created_by  | objects_part.created_at  | objects_part.updated_at  | objects_part.entity_type  | objects_part.category_code  |
++------------------+-------------------------+-------------------------+-------------------------------+-------------------------------+----------------------------------------+----------------------+--------------------------+-------------------------+----------------------+----------------------------+--------------------------------+----------------------------------------------------+--------------------------+---------------------------+---------------------------------+---------------------------+----------------------------------------------------+------------------------+----------------------------+--------------------------+--------------------+----------------------+-----------------------------------+----------------------------------+---------------------------------+----------------------------------+--------------------------------+-------------------------------+------------------------------+---------------------------------+----------------------------------+---------------------------------+--------------------------+-----------------------------+--------------------------+--------------------------+--------------------------+---------------------------+-----------------------------+
+| c:100042         | 100042                  | NULL                    | HostNine                      | hostnine                      | /company/hostnine                      | operating            | NULL                     | NULL                    | hostnine.com         | http://www.hostnine.com    | Hostnine                       | http://s3.amazonaws.com/crunchbase_prod_assets/assets/images/resized/0016/7028/167028v1-max-250x250.jpg | 187                      | 53                        | NULL                            | NULL                      | At HostNine they are commited to continually evaluating and improving their product line and your services - ensuring that they?re always firmly ahead of the competition, and even more importantly, providing their clients with everything that they need to be successful. | NULL                   | NULL                       | NULL                     | NULL               | unknown              | NULL                              | NULL                             | 0                               | 0                                | NULL                           | NULL                          | 0                            | 0.00                            | 2011-06-20                       | 2011-06-20                      | 1                        | 1                           | NULL                     | 2011-09-07 00:53:17.0    | 2011-12-20 09:09:53.0    | Company                   | __HIVE_DEFAULT_PARTITION__  |
+| c:10268          | 10268                   | NULL                    | BIGGLOBE                      | bigglobe                      | /company/bigglobe                      | operating            | NULL                     | NULL                    | NULL                 | NULL                       | NULL                           | NULL                                               | 0                        | 0                         | NULL                            | NULL                      | NULL                                               | NULL                   | NULL                       | NULL                     | NULL               | unknown              | NULL                              | NULL                             | 0                               | 0                                | NULL                           | NULL                          | 0                            | 0.00                            | NULL                             | NULL                            | 0                        | 0                           | serkantoto               | 2008-08-28 20:47:47.0    | 2008-08-28 20:47:47.0    | Company                   | __HIVE_DEFAULT_PARTITION__  |
+| c:140007         | 140007                  | NULL                    | Heavenly                      | heavenly                      | /company/heavenly                      | operating            | NULL                     | NULL                    | NULL                 | NULL                       | NULL                           | NULL                                               | 0                        | 0                         | NULL                            | NULL                      | NULL                                               | NULL                   | NULL                       | NULL                     | NULL               | unknown              | NULL                              | NULL                             | 0                               | 0                                | NULL                           | NULL                          | 0                            | 0.00                            | NULL                             | NULL                            | 0                        | 0                           | NULL                     | 2011-10-26 23:33:37.0    | 2011-11-03 21:10:31.0    | Company                   | __HIVE_DEFAULT_PARTITION__  |
+| c:10020          | 10020                   | NULL                    | Threebrix E-services Pvt Ltd  | threebrix e services pvt      | /company/threebrix-e-services-pvt-ltd  | operating            | NULL                     | NULL                    | NULL                 | NULL                       | NULL                           | NULL                                               | 0                        | 0                         | NULL                            | NULL                      | NULL                                               | NULL                   | NULL                       | NULL                     | NULL               | unknown              | NULL                              | NULL                             | 1                               | 1                                | NULL                           | NULL                          | 0                            | 0.00                            | NULL                             | NULL                            | 0                        | 0                           | NULL                     | 2008-08-25 04:03:25.0    | 2008-08-25 16:26:39.0    | Company                   | __HIVE_DEFAULT_PARTITION__  |
+| c:100211         | 100211                  | NULL                    | The Lions Group               | the lions group               | /company/the-lions-group               | operating            | NULL                     | NULL                    | NULL                 | NULL                       | NULL                           | NULL                                               | 0                        | 0                         | NULL                            | NULL                      | NULL                                               | NULL                   | NULL                       | NULL                     | NULL               | unknown              | NULL                              | NULL                             | 0                               | 0                                | NULL                           | NULL                          | 0                            | 0.00                            | NULL                             | NULL                            | 0                        | 0                           | NULL                     | 2011-09-07 02:43:13.0    | 2011-09-24 13:14:04.0    | Company                   | __HIVE_DEFAULT_PARTITION__  |
++------------------+-------------------------+-------------------------+-------------------------------+-------------------------------+----------------------------------------+----------------------+--------------------------+-------------------------+----------------------+----------------------------+--------------------------------+----------------------------------------------------+--------------------------+---------------------------+---------------------------------+---------------------------+----------------------------------------------------+------------------------+----------------------------+--------------------------+--------------------+----------------------+-----------------------------------+----------------------------------+---------------------------------+----------------------------------+--------------------------------+-------------------------------+------------------------------+---------------------------------+----------------------------------+---------------------------------+--------------------------+-----------------------------+--------------------------+--------------------------+--------------------------+---------------------------+-----------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM funding_rounds_part
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 5;
++-------------------------+---------------------------------------+--------------------------------+--------------------------------+-----------------------------------------+-----------------------------------------+----------------------------------------+------------------------------------+-------------------------------------------+----------------------------------------------+------------------------------------------+----------------------------------------------+-----------------------------------------------+-------------------------------------------+-----------------------------------------------+-----------------------------------+-------------------------------------+------------------------------------+----------------------------------------+-----------------------------------------+---------------------------------+---------------------------------+---------------------------------+-------------------------------------+
+| funding_rounds_part.id  | funding_rounds_part.funding_round_id  | funding_rounds_part.object_id  | funding_rounds_part.funded_at  | funding_rounds_part.funding_round_type  | funding_rounds_part.funding_round_code  | funding_rounds_part.raised_amount_usd  | funding_rounds_part.raised_amount  | funding_rounds_part.raised_currency_code  | funding_rounds_part.pre_money_valuation_usd  | funding_rounds_part.pre_money_valuation  | funding_rounds_part.pre_money_currency_code  | funding_rounds_part.post_money_valuation_usd  | funding_rounds_part.post_money_valuation  | funding_rounds_part.post_money_currency_code  | funding_rounds_part.participants  | funding_rounds_part.is_first_round  | funding_rounds_part.is_last_round  |     funding_rounds_part.source_url     | funding_rounds_part.source_description  | funding_rounds_part.created_by  | funding_rounds_part.created_at  | funding_rounds_part.updated_at  | funding_rounds_part.funded_at_year  |
++-------------------------+---------------------------------------+--------------------------------+--------------------------------+-----------------------------------------+-----------------------------------------+----------------------------------------+------------------------------------+-------------------------------------------+----------------------------------------------+------------------------------------------+----------------------------------------------+-----------------------------------------------+-------------------------------------------+-----------------------------------------------+-----------------------------------+-------------------------------------+------------------------------------+----------------------------------------+-----------------------------------------+---------------------------------+---------------------------------+---------------------------------+-------------------------------------+
+| 177                     | 177                                   | c:253                          | 2000-05-01                     | series-a                                | a                                       | 7700000.00                             | 7700000.00                         | USD                                       | 0.00                                         | 0.00                                     | NULL                                         | 0.00                                          | 0.00                                      | NULL                                          | 1                                 | 0                                   | 1                                  | NULL                                   | NULL                                    | initial-importer                | 2007-07-24 06:56:39.0           | 2009-01-27 18:48:06.0           | 2000                                |
+| 206                     | 206                                   | c:163                          | 2000-03-01                     | series-a                                | a                                       | 1200000.00                             | 1200000.00                         | USD                                       | 0.00                                         | 0.00                                     | NULL                                         | 0.00                                          | 0.00                                      | NULL                                          | 3                                 | 0                                   | 1                                  | NULL                                   | NULL                                    | initial-importer                | 2007-07-20 06:09:04.0           | 2008-11-24 21:01:46.0           | 2000                                |
+| 227                     | 227                                   | c:126                          | 2000-10-01                     | series-a                                | a                                       | 6800000.00                             | 6800000.00                         | USD                                       | 0.00                                         | 0.00                                     | NULL                                         | 0.00                                          | 0.00                                      | NULL                                          | 1                                 | 0                                   | 0                                  | NULL                                   | NULL                                    | initial-importer                | 2007-07-24 03:57:20.0           | 2008-02-24 21:24:10.0           | 2000                                |
+| 300                     | 300                                   | c:354                          | 2000-05-01                     | series-b                                | b                                       | 36000000.00                            | 36000000.00                        | USD                                       | 0.00                                         | 0.00                                     | NULL                                         | 0.00                                          | 0.00                                      | NULL                                          | 4                                 | 1                                   | 0                                  | http://www.snapfish.com/release532000  | NULL                                    | initial-importer                | 2007-08-03 09:10:10.0           | 2008-02-24 21:24:14.0           | 2000                                |
+| 420                     | 420                                   | c:537                          | 2000-06-01                     | series-a                                | a                                       | 3000000.00                             | 3000000.00                         | USD                                       | 0.00                                         | 0.00                                     | NULL                                         | 0.00                                          | 0.00                                      | NULL                                          | 1                                 | 0                                   | 1                                  | NULL                                   | NULL                                    | initial-importer                | 2007-08-22 05:46:45.0           | 2010-08-16 15:30:46.0           | 2000                                |
++-------------------------+---------------------------------------+--------------------------------+--------------------------------+-----------------------------------------+-----------------------------------------+----------------------------------------+------------------------------------+-------------------------------------------+----------------------------------------------+------------------------------------------+----------------------------------------------+-----------------------------------------------+-------------------------------------------+-----------------------------------------------+-----------------------------------+-------------------------------------+------------------------------------+----------------------------------------+-----------------------------------------+---------------------------------+---------------------------------+---------------------------------+-------------------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

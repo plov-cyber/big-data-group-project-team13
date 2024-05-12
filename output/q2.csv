@@ -1,0 +1,131 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team13_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q2_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q2_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     category_code   STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     founded_at_year INTEGER
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q2';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q2_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT category_code, founded_at_year
+. . . . . . . . . . . . . . . . . . . . . . .> FROM (SELECT category_code, year(founded_at) AS founded_at_year
+. . . . . . . . . . . . . . . . . . . . . . .>       FROM objects_part
+. . . . . . . . . . . . . . . . . . . . . . .>       WHERE entity_type = 'Company'
+. . . . . . . . . . . . . . . . . . . . . . .>         AND category_code IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>         AND country_code IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>         AND founded_at IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>         AND category_code IN ('web', 'advertising', 'mobile', 'software', 'ecommerce')) companies
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE founded_at_year > 2000;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q2_results
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 100;
++----------------+------------------+
+| category_code  | founded_at_year  |
++----------------+------------------+
+| software       | 2011             |
+| software       | 2011             |
+| software       | 2001             |
+| software       | 2004             |
+| software       | 2011             |
+| software       | 2011             |
+| software       | 2008             |
+| software       | 2007             |
+| software       | 2006             |
+| software       | 2008             |
+| software       | 2007             |
+| software       | 2008             |
+| software       | 2010             |
+| software       | 2007             |
+| software       | 2001             |
+| software       | 2008             |
+| software       | 2010             |
+| software       | 2006             |
+| software       | 2006             |
+| software       | 2009             |
+| software       | 2009             |
+| software       | 2008             |
+| software       | 2006             |
+| software       | 2005             |
+| software       | 2008             |
+| software       | 2001             |
+| software       | 2002             |
+| software       | 2009             |
+| software       | 2005             |
+| software       | 2009             |
+| software       | 2011             |
+| software       | 2002             |
+| software       | 2010             |
+| software       | 2004             |
+| software       | 2001             |
+| software       | 2007             |
+| software       | 2002             |
+| software       | 2002             |
+| software       | 2004             |
+| software       | 2007             |
+| software       | 2005             |
+| software       | 2005             |
+| software       | 2006             |
+| software       | 2011             |
+| software       | 2004             |
+| software       | 2010             |
+| software       | 2006             |
+| software       | 2011             |
+| software       | 2005             |
+| software       | 2005             |
+| software       | 2005             |
+| software       | 2004             |
+| software       | 2011             |
+| software       | 2001             |
+| software       | 2011             |
+| software       | 2007             |
+| software       | 2004             |
+| software       | 2006             |
+| software       | 2002             |
+| software       | 2010             |
+| software       | 2007             |
+| software       | 2011             |
+| software       | 2001             |
+| software       | 2008             |
+| software       | 2009             |
+| software       | 2010             |
+| software       | 2005             |
+| software       | 2008             |
+| software       | 2003             |
+| software       | 2002             |
+| software       | 2011             |
+| software       | 2005             |
+| software       | 2007             |
+| software       | 2008             |
+| software       | 2004             |
+| software       | 2005             |
+| software       | 2007             |
+| software       | 2002             |
+| software       | 2002             |
+| software       | 2008             |
+| software       | 2007             |
+| software       | 2008             |
+| software       | 2010             |
+| software       | 2011             |
+| software       | 2010             |
+| software       | 2005             |
+| software       | 2011             |
+| software       | 2009             |
+| software       | 2003             |
+| software       | 2008             |
+| software       | 2011             |
+| software       | 2007             |
+| software       | 2011             |
+| software       | 2007             |
+| software       | 2001             |
+| software       | 2008             |
+| software       | 2011             |
+| software       | 2010             |
+| software       | 2007             |
+| software       | 2001             |
++----------------+------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

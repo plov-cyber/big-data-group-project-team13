@@ -1,0 +1,136 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team13_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q1_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q1_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     category_code         STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     raised_amount_mln_usd FLOAT
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q1';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q1_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT category_code, raised_amount_mln_usd
+. . . . . . . . . . . . . . . . . . . . . . .> FROM (SELECT category_code, ROUND(raised_amount_usd / POW(10, 6), 2) AS raised_amount_mln_usd
+. . . . . . . . . . . . . . . . . . . . . . .>       FROM funding_rounds_part
+. . . . . . . . . . . . . . . . . . . . . . .>                LEFT JOIN (SELECT category_code, id
+. . . . . . . . . . . . . . . . . . . . . . .>                           FROM objects_part
+. . . . . . . . . . . . . . . . . . . . . . .>                           WHERE entity_type = 'Company'
+. . . . . . . . . . . . . . . . . . . . . . .>                             AND category_code IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>                             AND country_code IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>                             AND founded_at IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>                             AND category_code IN ('web', 'advertising', 'mobile', 'software',
+. . . . . . . . . . . . . . . . . . . . . . .>                                                   'ecommerce')) companies_from_top_categories
+. . . . . . . . . . . . . . . . . . . . . . .>                          ON (funding_rounds_part.object_id = companies_from_top_categories.id)) money_by_category
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE raised_amount_mln_usd <= 50
+. . . . . . . . . . . . . . . . . . . . . . .>   AND category_code IS NOT NULL;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q1_results
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 100;
++----------------+------------------------+
+| category_code  | raised_amount_mln_usd  |
++----------------+------------------------+
+| mobile         | 0.0                    |
+| web            | 2.5                    |
+| web            | 0.0                    |
+| web            | 0.35                   |
+| ecommerce      | 0.0                    |
+| web            | 4.35                   |
+| web            | 0.0                    |
+| software       | 0.18                   |
+| software       | 0.18                   |
+| software       | 0.95                   |
+| advertising    | 14.0                   |
+| advertising    | 3.0                    |
+| advertising    | 10.0                   |
+| advertising    | 12.2                   |
+| advertising    | 16.37                  |
+| advertising    | 7.0                    |
+| advertising    | 0.0                    |
+| advertising    | 2.0                    |
+| software       | 0.38                   |
+| web            | 0.5                    |
+| mobile         | 13.14                  |
+| mobile         | 13.51                  |
+| mobile         | 9.53                   |
+| mobile         | 21.57                  |
+| web            | 15.0                   |
+| web            | 9.3                    |
+| software       | 7.2                    |
+| software       | 20.0                   |
+| software       | 0.23                   |
+| advertising    | 0.0                    |
+| web            | 0.15                   |
+| mobile         | 0.0                    |
+| mobile         | 0.02                   |
+| software       | 1.0                    |
+| web            | 15.0                   |
+| web            | 3.0                    |
+| web            | 10.25                  |
+| web            | 1.29                   |
+| advertising    | 6.0                    |
+| advertising    | 7.25                   |
+| web            | 0.51                   |
+| web            | 0.0                    |
+| advertising    | 0.05                   |
+| web            | 2.5                    |
+| web            | 1.5                    |
+| ecommerce      | 8.7                    |
+| software       | 8.0                    |
+| advertising    | 0.0                    |
+| advertising    | 37.0                   |
+| advertising    | 11.0                   |
+| advertising    | 0.0                    |
+| advertising    | 8.4                    |
+| advertising    | 40.0                   |
+| advertising    | 18.0                   |
+| advertising    | 2.0                    |
+| advertising    | 3.99                   |
+| advertising    | 1.71                   |
+| mobile         | 0.02                   |
+| web            | 0.25                   |
+| web            | 0.0                    |
+| mobile         | 4.0                    |
+| web            | 0.5                    |
+| web            | 1.0                    |
+| web            | 0.1                    |
+| mobile         | 0.04                   |
+| web            | 3.0                    |
+| web            | 0.5                    |
+| web            | 0.0                    |
+| software       | 0.05                   |
+| mobile         | 0.0                    |
+| mobile         | 6.6                    |
+| mobile         | 0.27                   |
+| ecommerce      | 0.0                    |
+| ecommerce      | 0.0                    |
+| ecommerce      | 40.0                   |
+| mobile         | 0.0                    |
+| mobile         | 3.5                    |
+| mobile         | 7.0                    |
+| software       | 3.5                    |
+| advertising    | 11.9                   |
+| advertising    | 7.0                    |
+| advertising    | 0.0                    |
+| advertising    | 25.0                   |
+| advertising    | 5.0                    |
+| advertising    | 9.0                    |
+| advertising    | 10.0                   |
+| advertising    | 5.0                    |
+| advertising    | 2.0                    |
+| advertising    | 0.51                   |
+| advertising    | 5.3                    |
+| advertising    | 10.0                   |
+| ecommerce      | 2.5                    |
+| ecommerce      | 12.0                   |
+| ecommerce      | 5.0                    |
+| ecommerce      | 2.05                   |
+| software       | 0.7                    |
+| software       | 1.0                    |
+| software       | 5.0                    |
+| web            | 1.0                    |
+| web            | 0.5                    |
++----------------+------------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

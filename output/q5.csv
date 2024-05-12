@@ -1,0 +1,126 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team13_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q5_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q5_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_round_id INTEGER,
+. . . . . . . . . . . . . . . . . . . . . . .>     funded_at_year INTEGER,
+. . . . . . . . . . . . . . . . . . . . . . .>     funding_round_type STRING
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q5';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q5_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT funding_round_id, funded_at_year, funding_round_type
+. . . . . . . . . . . . . . . . . . . . . . .> FROM funding_rounds_part;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q5_results
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 100;
++-------------------+-----------------+---------------------+
+| funding_round_id  | funded_at_year  | funding_round_type  |
++-------------------+-----------------+---------------------+
+| 6688              | 2013            | angel               |
+| 7966              | 2013            | series-a            |
+| 15397             | 2013            | angel               |
+| 16521             | 2013            | angel               |
+| 18089             | 2013            | series-b            |
+| 20534             | 2013            | series-a            |
+| 21050             | 2013            | angel               |
+| 21790             | 2013            | angel               |
+| 22024             | 2013            | series-a            |
+| 22545             | 2013            | venture             |
+| 23738             | 2013            | angel               |
+| 23825             | 2013            | series-b            |
+| 24254             | 2013            | series-a            |
+| 24690             | 2013            | series-a            |
+| 24808             | 2013            | series-a            |
+| 24823             | 2013            | other               |
+| 24861             | 2013            | series-a            |
+| 25023             | 2013            | series-a            |
+| 25081             | 2013            | series-a            |
+| 25311             | 2013            | angel               |
+| 25667             | 2013            | angel               |
+| 26190             | 2013            | angel               |
+| 26509             | 2013            | series-a            |
+| 27393             | 2013            | series-a            |
+| 27572             | 2013            | series-a            |
+| 27686             | 2013            | series-a            |
+| 27714             | 2013            | series-c+           |
+| 27939             | 2013            | series-a            |
+| 28557             | 2013            | series-a            |
+| 28720             | 2013            | venture             |
+| 28739             | 2013            | series-a            |
+| 28902             | 2013            | series-a            |
+| 29015             | 2013            | series-a            |
+| 29229             | 2013            | venture             |
+| 29376             | 2013            | angel               |
+| 29434             | 2013            | series-b            |
+| 29556             | 2013            | series-a            |
+| 29582             | 2013            | series-a            |
+| 29744             | 2013            | series-a            |
+| 29752             | 2013            | angel               |
+| 29926             | 2013            | series-a            |
+| 30044             | 2013            | angel               |
+| 30998             | 2013            | angel               |
+| 30399             | 2013            | angel               |
+| 30516             | 2013            | series-a            |
+| 30694             | 2013            | other               |
+| 30817             | 2013            | angel               |
+| 30896             | 2013            | angel               |
+| 30964             | 2013            | series-a            |
+| 31046             | 2013            | angel               |
+| 31585             | 2013            | angel               |
+| 31853             | 2013            | angel               |
+| 31919             | 2013            | venture             |
+| 31997             | 2013            | angel               |
+| 32192             | 2013            | series-a            |
+| 32239             | 2013            | venture             |
+| 32307             | 2013            | angel               |
+| 32336             | 2013            | series-a            |
+| 32463             | 2013            | series-b            |
+| 32648             | 2013            | angel               |
+| 35249             | 2013            | angel               |
+| 32849             | 2013            | angel               |
+| 32911             | 2013            | angel               |
+| 32961             | 2013            | series-a            |
+| 35250             | 2013            | angel               |
+| 33089             | 2013            | angel               |
+| 33163             | 2013            | series-a            |
+| 33193             | 2013            | angel               |
+| 33220             | 2013            | angel               |
+| 37169             | 2013            | series-a            |
+| 33367             | 2013            | angel               |
+| 33409             | 2013            | series-a            |
+| 33506             | 2013            | series-a            |
+| 34926             | 2013            | angel               |
+| 33581             | 2013            | angel               |
+| 33603             | 2013            | angel               |
+| 33640             | 2013            | series-a            |
+| 33645             | 2013            | angel               |
+| 33655             | 2013            | series-a            |
+| 33774             | 2013            | angel               |
+| 33933             | 2013            | series-a            |
+| 33964             | 2013            | angel               |
+| 33987             | 2013            | angel               |
+| 34036             | 2013            | angel               |
+| 37171             | 2013            | angel               |
+| 34091             | 2013            | series-c+           |
+| 34099             | 2013            | series-a            |
+| 34345             | 2013            | series-a            |
+| 34350             | 2013            | series-c+           |
+| 34357             | 2013            | angel               |
+| 34363             | 2013            | angel               |
+| 34386             | 2013            | angel               |
+| 34412             | 2013            | angel               |
+| 34551             | 2013            | series-b            |
+| 34552             | 2013            | series-a            |
+| 34553             | 2013            | series-b            |
+| 34556             | 2013            | series-c+           |
+| 34557             | 2013            | other               |
+| 34566             | 2013            | venture             |
+| 34568             | 2013            | venture             |
++-------------------+-----------------+---------------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

@@ -1,0 +1,247 @@
+{
+  "type" : "record",
+  "name" : "objects",
+  "doc" : "Sqoop import of objects",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "12"
+  }, {
+    "name" : "entity_type",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "entity_type",
+    "sqlType" : "12"
+  }, {
+    "name" : "entity_id",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "entity_id",
+    "sqlType" : "-5"
+  }, {
+    "name" : "parent_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "parent_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "name",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "name",
+    "sqlType" : "12"
+  }, {
+    "name" : "normalized_name",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "normalized_name",
+    "sqlType" : "12"
+  }, {
+    "name" : "permalink",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "permalink",
+    "sqlType" : "12"
+  }, {
+    "name" : "category_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "category_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "status",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "status",
+    "sqlType" : "12"
+  }, {
+    "name" : "founded_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "founded_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "closed_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "closed_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "domain",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "domain",
+    "sqlType" : "12"
+  }, {
+    "name" : "homepage_url",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "homepage_url",
+    "sqlType" : "12"
+  }, {
+    "name" : "twitter_username",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "twitter_username",
+    "sqlType" : "12"
+  }, {
+    "name" : "logo_url",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "logo_url",
+    "sqlType" : "12"
+  }, {
+    "name" : "logo_width",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "logo_width",
+    "sqlType" : "5"
+  }, {
+    "name" : "logo_height",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "logo_height",
+    "sqlType" : "5"
+  }, {
+    "name" : "short_description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "short_description",
+    "sqlType" : "12"
+  }, {
+    "name" : "description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "description",
+    "sqlType" : "12"
+  }, {
+    "name" : "overview",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "overview",
+    "sqlType" : "12"
+  }, {
+    "name" : "tag_list",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "tag_list",
+    "sqlType" : "12"
+  }, {
+    "name" : "country_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "country_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "state_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "state_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "city",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "city",
+    "sqlType" : "12"
+  }, {
+    "name" : "region",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "region",
+    "sqlType" : "12"
+  }, {
+    "name" : "first_investment_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "first_investment_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "last_investment_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "last_investment_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "investment_rounds",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "investment_rounds",
+    "sqlType" : "5"
+  }, {
+    "name" : "invested_companies",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "invested_companies",
+    "sqlType" : "5"
+  }, {
+    "name" : "first_funding_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "first_funding_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "last_funding_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "last_funding_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "funding_rounds",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "funding_rounds",
+    "sqlType" : "5"
+  }, {
+    "name" : "funding_total_usd",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "funding_total_usd",
+    "sqlType" : "2"
+  }, {
+    "name" : "first_milestone_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "first_milestone_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "last_milestone_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "last_milestone_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "milestones",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "milestones",
+    "sqlType" : "5"
+  }, {
+    "name" : "relationships",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "relationships",
+    "sqlType" : "5"
+  }, {
+    "name" : "created_by",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "created_by",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "objects"
+}

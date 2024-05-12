@@ -1,0 +1,145 @@
+{
+  "type" : "record",
+  "name" : "funding_rounds",
+  "doc" : "Sqoop import of funding_rounds",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "funding_round_id",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "funding_round_id",
+    "sqlType" : "-5"
+  }, {
+    "name" : "object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "funded_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "funded_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "funding_round_type",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "funding_round_type",
+    "sqlType" : "12"
+  }, {
+    "name" : "funding_round_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "funding_round_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "raised_amount_usd",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "raised_amount_usd",
+    "sqlType" : "2"
+  }, {
+    "name" : "raised_amount",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "raised_amount",
+    "sqlType" : "2"
+  }, {
+    "name" : "raised_currency_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "raised_currency_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "pre_money_valuation_usd",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "pre_money_valuation_usd",
+    "sqlType" : "2"
+  }, {
+    "name" : "pre_money_valuation",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "pre_money_valuation",
+    "sqlType" : "2"
+  }, {
+    "name" : "pre_money_currency_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "pre_money_currency_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "post_money_valuation_usd",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "post_money_valuation_usd",
+    "sqlType" : "2"
+  }, {
+    "name" : "post_money_valuation",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "post_money_valuation",
+    "sqlType" : "2"
+  }, {
+    "name" : "post_money_currency_code",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "post_money_currency_code",
+    "sqlType" : "12"
+  }, {
+    "name" : "participants",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "participants",
+    "sqlType" : "5"
+  }, {
+    "name" : "is_first_round",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "is_first_round",
+    "sqlType" : "5"
+  }, {
+    "name" : "is_last_round",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "is_last_round",
+    "sqlType" : "5"
+  }, {
+    "name" : "source_url",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_url",
+    "sqlType" : "12"
+  }, {
+    "name" : "source_description",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "source_description",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_by",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "created_by",
+    "sqlType" : "12"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "funding_rounds"
+}

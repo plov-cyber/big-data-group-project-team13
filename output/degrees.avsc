@@ -1,0 +1,55 @@
+{
+  "type" : "record",
+  "name" : "degrees",
+  "doc" : "Sqoop import of degrees",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "id",
+    "sqlType" : "4"
+  }, {
+    "name" : "object_id",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "object_id",
+    "sqlType" : "12"
+  }, {
+    "name" : "degree_type",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "degree_type",
+    "sqlType" : "12"
+  }, {
+    "name" : "subject",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "subject",
+    "sqlType" : "12"
+  }, {
+    "name" : "institution",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "institution",
+    "sqlType" : "12"
+  }, {
+    "name" : "graduated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "graduated_at",
+    "sqlType" : "91"
+  }, {
+    "name" : "created_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "created_at",
+    "sqlType" : "93"
+  }, {
+    "name" : "updated_at",
+    "type" : [ "null", "long" ],
+    "default" : null,
+    "columnName" : "updated_at",
+    "sqlType" : "93"
+  } ],
+  "tableName" : "degrees"
+}

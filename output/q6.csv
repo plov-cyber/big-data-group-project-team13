@@ -1,0 +1,167 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team13_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q6_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q6_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     object_id            STRING,
+. . . . . . . . . . . . . . . . . . . . . . .>     funded_at_year       INTEGER,
+. . . . . . . . . . . . . . . . . . . . . . .>     raised_money_mln_usd FLOAT,
+. . . . . . . . . . . . . . . . . . . . . . .>     continent            STRING
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q6';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q6_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT object_id,
+. . . . . . . . . . . . . . . . . . . . . . .>        funded_at_year,
+. . . . . . . . . . . . . . . . . . . . . . .>        ROUND(raised_amount_usd / POW(10, 6), 2) AS raised_amount_mln_usd,
+. . . . . . . . . . . . . . . . . . . . . . .>        (CASE
+. . . . . . . . . . . . . . . . . . . . . . .>             WHEN
+. . . . . . . . . . . . . . . . . . . . . . .>                 (country_code IN
+. . . . . . . . . . . . . . . . . . . . . . .>                  ('AGO', 'BDI', 'BEN', 'BWA', 'CIV', 'CMR', 'DZA', 'EGY', 'ETH', 'GHA', 'GIN', 'KEN', 'LSO', 'MAR',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'MDG', 'MUS', 'NAM', 'NER', 'NGA', 'REU', 'RWA', 'SDN', 'SEN', 'SLE', 'SOM', 'SWZ', 'SYC', 'TUN',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'TZA', 'UGA', 'ZAF', 'ZMB', 'ZWE')
+. . . . . . . . . . . . . . . . . . . . . . .>                     ) THEN 'Africa'
+. . . . . . . . . . . . . . . . . . . . . . .>             WHEN
+. . . . . . . . . . . . . . . . . . . . . . .>                 (country_code IN
+. . . . . . . . . . . . . . . . . . . . . . .>                  ('AFG', 'ARE', 'BGD', 'BHR', 'BRN', 'CHN', 'HKG', 'IDN', 'IND', 'IOT', 'IRN', 'IRQ', 'ISR', 'JOR',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'JPN', 'KAZ', 'KGZ', 'KHM', 'KOR', 'KWT', 'LAO', 'LBN', 'LKA', 'MAC', 'MDV', 'MMR', 'MYS', 'NPL',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'OMN', 'PAK', 'PCN', 'PHL', 'PRK', 'PST', 'QAT', 'SAU', 'SGP', 'SYR', 'THA', 'TJK', 'TWN', 'UZB',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'VNM', 'YEM')
+. . . . . . . . . . . . . . . . . . . . . . .>                     ) THEN 'Asia'
+. . . . . . . . . . . . . . . . . . . . . . .>             WHEN
+. . . . . . . . . . . . . . . . . . . . . . .>                 (country_code IN
+. . . . . . . . . . . . . . . . . . . . . . .>                  ('AIA', 'ALB', 'AND', 'ARM', 'AUT', 'AZE', 'BEL', 'BGR', 'BIH', 'BLR', 'CHE', 'CYP', 'CZE', 'DEU',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'DNK', 'ESP', 'EST', 'FIN', 'FRA', 'GBR', 'GEO', 'GIB', 'GLB', 'GRC', 'HRV', 'HUN', 'IRL', 'ISL',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'ITA', 'LIE', 'LTU', 'LUX', 'LVA', 'MCO', 'MDA', 'MKD', 'MLT', 'NLD', 'NOR', 'POL', 'PRT', 'ROM',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'RUS', 'SMR', 'SVK', 'SVN', 'SWE', 'TUR', 'UKR')
+. . . . . . . . . . . . . . . . . . . . . . .>                     ) THEN 'Europe'
+. . . . . . . . . . . . . . . . . . . . . . .>             WHEN
+. . . . . . . . . . . . . . . . . . . . . . .>                 (country_code IN
+. . . . . . . . . . . . . . . . . . . . . . .>                  ('ATG', 'BHS', 'BLZ', 'BMU', 'BRB', 'CAN', 'CRI', 'CUB', 'CYM', 'DMA', 'GRD', 'GTM', 'HND', 'HTI',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'JAM', 'MEX', 'MTQ', 'PAN', 'PRI', 'SLV', 'UMI', 'USA', 'VGB', 'VIR')
+. . . . . . . . . . . . . . . . . . . . . . .>                     ) THEN 'North America'
+. . . . . . . . . . . . . . . . . . . . . . .>             WHEN
+. . . . . . . . . . . . . . . . . . . . . . .>                 (country_code IN
+. . . . . . . . . . . . . . . . . . . . . . .>                  ('ARG', 'BOL', 'BRA', 'CHL', 'COL', 'DOM', 'ECU', 'NIC', 'PER', 'PRY', 'SUR', 'TTO', 'URY', 'VEN',
+. . . . . . . . . . . . . . . . . . . . . . .>                   'VCT')
+. . . . . . . . . . . . . . . . . . . . . . .>                     ) THEN 'South America'
+. . . . . . . . . . . . . . . . . . . . . . .>             ELSE 'Other' END)                   AS continent
+. . . . . . . . . . . . . . . . . . . . . . .> FROM funding_rounds_part
+. . . . . . . . . . . . . . . . . . . . . . .>          LEFT JOIN (SELECT country_code, id
+. . . . . . . . . . . . . . . . . . . . . . .>                     FROM objects_part
+. . . . . . . . . . . . . . . . . . . . . . .>                     WHERE entity_type = 'Company'
+. . . . . . . . . . . . . . . . . . . . . . .>                       AND category_code IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>                       AND country_code IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .>                       AND founded_at IS NOT NULL) companies
+. . . . . . . . . . . . . . . . . . . . . . .>                    ON (funding_rounds_part.object_id = companies.id);
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q6_results
+. . . . . . . . . . . . . . . . . . . . . . .> LIMIT 100;
++------------+-----------------+-----------------------+----------------+
+| object_id  | funded_at_year  | raised_money_mln_usd  |   continent    |
++------------+-----------------+-----------------------+----------------+
+| c:100155   | 2011            | 6.5                   | North America  |
+| c:100155   | 2011            | 0.38                  | North America  |
+| c:100155   | 2012            | 3.25                  | North America  |
+| c:100253   | 2011            | 2.8                   | Other          |
+| c:100317   | 2011            | 0.0                   | Other          |
+| c:100331   | 2011            | 2.1                   | Other          |
+| c:100607   | 2011            | 0.04                  | North America  |
+| c:1007     | 2007            | 3.0                   | Other          |
+| c:10075    | 2007            | 0.35                  | North America  |
+| c:1010     | 2008            | 4.4                   | North America  |
+| c:1010     | 2010            | 12.0                  | North America  |
+| c:1010     | 2008            | 6.0                   | North America  |
+| c:1010     | 2007            | 2.0                   | North America  |
+| c:1010     | 2011            | 22.0                  | North America  |
+| c:101052   | 2010            | 0.02                  | North America  |
+| c:101052   | 2011            | 0.17                  | North America  |
+| c:101094   | 2013            | 4.82                  | North America  |
+| c:101094   | 2013            | 0.0                   | North America  |
+| c:101102   | 2001            | 0.0                   | North America  |
+| c:10116    | 2012            | 1.61                  | Europe         |
+| c:101481   | 2011            | 6.0                   | Other          |
+| c:101511   | 2012            | 10.2                  | North America  |
+| c:10164    | 2011            | 3.0                   | Europe         |
+| c:10164    | 2009            | 0.5                   | Europe         |
+| c:1017     | 2007            | 0.0                   | North America  |
+| c:10170    | 2011            | 28.0                  | Other          |
+| c:1022     | 2007            | 0.0                   | North America  |
+| c:102294   | 2011            | 0.5                   | Other          |
+| c:102294   | 2012            | 0.15                  | Other          |
+| c:102447   | 2012            | 20.0                  | North America  |
+| c:102447   | 2011            | 7.2                   | North America  |
+| c:10252    | 2008            | 1.1                   | North America  |
+| c:102922   | 2011            | 0.14                  | Europe         |
+| c:10308    | 2007            | 0.15                  | North America  |
+| c:103155   | 2013            | 2.2                   | North America  |
+| c:103155   | 2011            | 0.31                  | North America  |
+| c:103155   | 2012            | 1.17                  | North America  |
+| c:103155   | 2012            | 0.55                  | North America  |
+| c:103155   | 2012            | 1.17                  | North America  |
+| c:103388   | 2004            | 0.75                  | Other          |
+| c:103388   | 2004            | 4.0                   | Other          |
+| c:103477   | 2013            | 0.01                  | North America  |
+| c:103477   | 2013            | 0.15                  | North America  |
+| c:10351    | 2013            | 0.49                  | North America  |
+| c:10351    | 2009            | 1.0                   | North America  |
+| c:10351    | 2008            | 0.07                  | North America  |
+| c:10351    | 2008            | 0.12                  | North America  |
+| c:10378    | 2007            | 0.05                  | North America  |
+| c:103903   | 2011            | 0.95                  | Europe         |
+| c:10393    | 2008            | 0.51                  | North America  |
+| c:104132   | 2011            | 0.05                  | Other          |
+| c:104138   | 2012            | 0.05                  | North America  |
+| c:104160   | 2011            | 0.0                   | Other          |
+| c:10430    | 2010            | 8.0                   | North America  |
+| c:104321   | 2013            | 4.0                   | North America  |
+| c:104601   | 2011            | 39.84                 | Other          |
+| c:104610   | 2011            | 2.0                   | Other          |
+| c:1048     | 2007            | 0.65                  | Other          |
+| c:104983   | 2011            | 0.17                  | Asia           |
+| c:105005   | 2011            | 0.0                   | North America  |
+| c:105075   | 2011            | 6.32                  | Europe         |
+| c:10512    | 2005            | 11.0                  | North America  |
+| c:10512    | 2007            | 17.0                  | North America  |
+| c:10512    | 2010            | 1.82                  | North America  |
+| c:10512    | 2009            | 4.0                   | North America  |
+| c:10512    | 2009            | 3.0                   | North America  |
+| c:10512    | 2008            | 17.0                  | North America  |
+| c:105386   | 2009            | 4.5                   | Europe         |
+| c:10550    | 2013            | 10.0                  | North America  |
+| c:105699   | 2011            | 2.75                  | Europe         |
+| c:10581    | 2008            | 4.0                   | North America  |
+| c:106079   | 2011            | 0.0                   | North America  |
+| c:106079   | 2013            | 40.0                  | North America  |
+| c:106079   | 2013            | 0.0                   | North America  |
+| c:10614    | 2010            | 4.2                   | North America  |
+| c:10621    | 2007            | 3.5                   | North America  |
+| c:106325   | 2011            | 0.02                  | South America  |
+| c:10643    | 2010            | 6.5                   | Other          |
+| c:106601   | 2011            | 0.1                   | Other          |
+| c:106601   | 2011            | 8.27                  | Other          |
+| c:106601   | 2011            | 2.0                   | Other          |
+| c:10667    | 2008            | 0.0                   | Other          |
+| c:1067     | 2010            | 5.3                   | North America  |
+| c:1067     | 2007            | 10.0                  | North America  |
+| c:1067     | 2007            | 2.0                   | North America  |
+| c:1067     | 2012            | 0.51                  | North America  |
+| c:10703    | 2007            | 3.11                  | North America  |
+| c:10703    | 2009            | 1.5                   | North America  |
+| c:10703    | 2011            | 1.0                   | North America  |
+| c:10703    | 2007            | 9.0                   | North America  |
+| c:10703    | 2006            | 1.72                  | North America  |
+| c:10704    | 2012            | 25.0                  | North America  |
+| c:10704    | 2008            | 4.7                   | North America  |
+| c:10704    | 2010            | 75.0                  | North America  |
+| c:10704    | 2008            | 25.0                  | North America  |
+| c:10704    | 2007            | 2.2                   | North America  |
+| c:10704    | 2009            | 57.0                  | North America  |
+| c:10704    | 2009            | 25.0                  | North America  |
+| c:10704    | 2009            | 30.0                  | North America  |
+| c:10704    | 2012            | 2.4                   | North America  |
++------------+-----------------+-----------------------+----------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
